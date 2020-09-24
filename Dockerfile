@@ -6,7 +6,7 @@ COPY tools/truepng-0.6.2.5.exe truepng.exe
 COPY tools/deflopt-2.07.exe deflopt.exe
 COPY tools/pngoptimizercl-2.6.2 /usr/bin/pngoptimizer
 COPY tools/pngout-20200115 /usr/bin/pngout
-COPY tools/defluff-0.3.2 /usr/bin/defluff
+# FIXME: COPY tools/defluff-0.3.2 /usr/bin/defluff
 
 USER root
 RUN chmod a+x main && \
