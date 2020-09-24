@@ -13,16 +13,24 @@ docker run -v "${PWD}/image.png:/file.png" matejkosiarcik/redopng
 \*Where "image.png" is the file you wish to optimize.
 `redopng` optimizes the image in-place.
 
-### Recommended
+```sh
+$ docker run matejkosiarcik/redopng
+Usage: matejkosiarcik/redopng [--fast|--default|--brute]
+Modes:
+ --fast   	Fastest, least efficient optimizations
+ --default	Default optimizations
+ --brute	Slowest, most efficient optimizations
+```
 
-I recommend calling `pngquant` before `redopng`:
+### Recommendation
+
+To further optimize images, I recommend calling `pngquant` before `redopng`.
+Beware `pngquant` is lossy.
 
 ```sh
 pngquant --strip --speed 1 --skip-if-larger --quality 0-95 --force 'image.png' --output 'image.png'
-# docker run ... # call redopng normally
+# call redopng here
 ```
-
-Beware `pngquant` is lossy.
 
 ## License
 
