@@ -23,7 +23,6 @@ RUN chmod a+x main && \
     curl -sL https://deb.nodesource.com/setup_14.x | bash - && \
     apt-get install --yes --no-install-recommends nodejs && \
     rm -rf /var/lib/apt/lists/* && \
-    chown root -R /usr/lib/node_modules && \
     npm install
 
 ENTRYPOINT [ "./main" ]
