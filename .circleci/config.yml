@@ -22,7 +22,7 @@ jobs:
     steps:
       - checkout
       - setup_remote_docker
-      - run: apk add --no-cache nodejs npm
+      - run: apk add --no-cache alpine-sdk nodejs npm
       - run: make bootstrap
       - run: make build
       - run: make test
