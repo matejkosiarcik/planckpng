@@ -14,7 +14,7 @@ trim_trailing_whitespace = true
 
 # Ignore binaries
 # TODO: maybe this is not necessary, check if eclint ignores binaries by default
-[{*.{so,pdb,dylib,dll,cache,a},*.{zip,7z,gz,xz},*.{jpg,jpeg,png,gif}}]
+[{*.{so,pdb,dylib,dll,cache,a},*.{zip,7z,gz,xz},*.{jpg,jpeg,png,gif},*.{exe,bin}}]
 charset = unset
 end_of_line = unset
 indent_size = unset

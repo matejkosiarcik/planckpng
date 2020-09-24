@@ -17,9 +17,9 @@ docker run -v "${PWD}/image.png:/file.png" matejkosiarcik/redopng
 $ docker run matejkosiarcik/redopng
 Usage: matejkosiarcik/redopng [--fast|--default|--brute]
 Modes:
- --fast   	Fastest, least efficient optimizations
- --default	Default optimizations
- --brute	Slowest, most efficient optimizations
+ --fast    Fastest, least efficient optimizations
+ --default Default optimizations
+ --brute   Slowest, most efficient optimizations
 ```
 
 ### Recommendation

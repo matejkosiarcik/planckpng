@@ -11,6 +11,4 @@ addons:
 install: skip
 
 script:
-  - make bootstrap
-  - make build
-  - make test
+  - make bootstrap build test

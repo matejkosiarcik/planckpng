@@ -4,9 +4,9 @@ set -euf
 help() {
     printf 'Usage: matejkosiarcik/redopng [--fast|--default|--brute]\n'
     printf 'Modes:\n'
-    printf ' --fast   \tFastest, least efficient optimizations\n'
-    printf ' --default\tDefault optimizations\n'
-    printf ' --brute\tSlowest, most efficient optimizations\n'
+    printf ' --fast    Fastest, least efficient optimizations\n'
+    printf ' --default Default optimizations\n'
+    printf ' --brute   Slowest, most efficient optimizations\n'
 }
 
 mode='default'
