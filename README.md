@@ -1,4 +1,4 @@
-# RE: Docker PNG optimizer
+# RE:png docker optimizer
 
 > Based mostly on these instructions <https://www.reddit.com/r/webdev/wiki/optimization#wiki_png_compression_instructions>
 
@@ -23,7 +23,6 @@ pngquant --strip --speed 1 --skip-if-larger --quality 0-95 --force 'image.png' -
 ```
 
 Beware `pngquant` is lossy.
-
 
 ## License
 

@@ -1,0 +1,25 @@
+version: 2.1
+
+workflows:
+  version: 2
+  circleci-build:
+    jobs:
+      - azlint
+      - build
+
+jobs:
+  azlint:
+    docker:
+      - image: matejkosiarcik/azlint
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run: azlint
+
+  build:
+    docker:
+      - image: docker
+    steps:
+      - checkout
+      - setup_remote_docker
+      - docker build . -t matejkosiarcik/redopng:dev
