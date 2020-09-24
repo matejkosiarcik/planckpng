@@ -22,4 +22,7 @@ jobs:
     steps:
       - checkout
       - setup_remote_docker
-      - run: docker build . -t matejkosiarcik/redopng:dev
+      - run: apk add --no-cache nodejs npm
+      - run: make bootstrap
+      - run: make build
+      - run: make test

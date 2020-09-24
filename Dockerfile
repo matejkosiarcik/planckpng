@@ -3,7 +3,7 @@ FROM scottyhardy/docker-wine:stable-5.0.2
 WORKDIR /src
 
 # copy tools
-COPY main.sh main
+COPY src/main.sh main
 COPY tools/truepng-0.6.2.5.exe truepng.exe
 COPY tools/deflopt-2.07.exe deflopt.exe
 COPY tools/pngoptimizercl-2.6.2 /usr/bin/pngoptimizer

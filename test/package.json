@@ -1,0 +1,9 @@
+{
+  "private": true,
+  "scripts": {
+    "test": "bats --recursive ."
+  },
+  "dependencies": {
+    "bats": "^1.2.1"
+  }
+}

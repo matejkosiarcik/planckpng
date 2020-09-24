@@ -13,6 +13,13 @@ SHELL := /bin/sh
 .PHONY: all
 all: build
 
+.PHONY: bootstrap
+bootstrap:
+	npm install --prefix test
+
 .PHONY: build
 build:
 	docker build . -t matejkosiarcik/redopng:dev
+
+.PHONY: test
+test:

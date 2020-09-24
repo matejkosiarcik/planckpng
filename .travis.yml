@@ -11,4 +11,6 @@ addons:
 install: skip
 
 script:
-  - docker build . -t matejkosiarcik/redopng:dev
+  - make bootstrap
+  - make build
+  - make test
