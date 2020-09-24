@@ -1,6 +1,5 @@
 FROM scottyhardy/docker-wine:stable-5.0.2
 
-USER root
 WORKDIR /src
 
 # copy tools
@@ -13,7 +12,7 @@ COPY tools/pngout-20200115 /usr/bin/pngout
 COPY package.json .
 COPY package-lock.json .
 
-# hadolint ignore=SC2016
+# hadolint ignore=SC2016,DL4006
 RUN chmod a+x main && \
     printf '%s\n%s\n%s\n' '#!/bin/sh' 'set -euf' 'WINEDEBUG=fixme-all,err-all wine /src/truepng.exe ${@}' >/usr/bin/truepng && \
     chmod a+x /usr/bin/truepng && \
