@@ -1,0 +1,14 @@
+language: generic
+os: linux
+
+services:
+  - docker
+
+addons:
+  apt:
+    update: true
+
+install: skip
+
+script:
+  - make bootstrap build test

@@ -1,0 +1,4 @@
+ignore_front_matter true
+show_kramdown_warnings true
+rules "~MD041"
+style "#{File.dirname(__FILE__)}/.mdlrc.rb"

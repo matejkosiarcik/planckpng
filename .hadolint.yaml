@@ -1,0 +1,3 @@
+ignored:
+  - DL3008  # apt-get exact versions
+  - DL3018  # apk exact versions
