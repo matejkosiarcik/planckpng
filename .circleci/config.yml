@@ -22,4 +22,4 @@ jobs:
     steps:
       - checkout
       - setup_remote_docker
-      - docker build . -t matejkosiarcik/redopng:dev
+      - run: docker build . -t matejkosiarcik/redopng:dev
