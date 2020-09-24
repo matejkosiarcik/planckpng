@@ -1,4 +1,4 @@
-FROM scottyhardy/docker-wine
+FROM scottyhardy/docker-wine:stable-5.0.2
 
 USER root
 WORKDIR /src
