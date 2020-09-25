@@ -1,4 +1,4 @@
-# RE:png docker optimizer
+# RE:png docker meta-optimizer
 
 [![dockerhub automated status](https://img.shields.io/docker/cloud/automated/matejkosiarcik/redopng)](https://hub.docker.com/r/matejkosiarcik/redopng/builds)
 [![dockerhub build status](https://img.shields.io/docker/cloud/build/matejkosiarcik/redopng)](https://hub.docker.com/r/matejkosiarcik/redopng/builds)
@@ -16,19 +16,20 @@
 
 ## What
 
-Redopng is png image optimizer based in docker, inspired by these instructions <https://www.reddit.com/r/webdev/wiki/optimization#wiki_png_compression_instructions>.
+Redopng is png image meta-optimizer based in docker, inspired by these instructions <https://www.reddit.com/r/webdev/wiki/optimization#wiki_png_compression_instructions>.
 
-Why docker? It provides consistent runtime for all other OSes.
+A meta-optimizer? `Redopng` is not an optimizer by itself, it just calls multiple existing optimizers like `zopflipng`, `optipng`, ...
+
+And docker? It provides consistent runtime for all other operating systems.
 
 ## Usage
 
-Simply call:
+Let's say you want to optimize `image.png` (in current folder), run:
 
 ```sh
 docker run -v "${PWD}/image.png:/file.png" matejkosiarcik/redopng
 ```
 
-\*Where "image.png" is the file you wish to optimize.
 `redopng` optimizes the image in-place.
 
 ### Help
