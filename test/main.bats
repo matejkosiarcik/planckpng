@@ -29,5 +29,5 @@ function teardown() {
     cp 'test/1x1.png' "${tmpdir}/1x1.png"
     run docker run --volume "${tmpdir}/1x1.png:/file.png" matejkosiarcik/redopng:dev --fast
     [ "${status}" -eq 0 ]
-    [ "$(wc -c <"${tmpdir}/1x1.png")" -le "$(wc -c <'test/1x1.png')" ]
+    [ "$(wc -c <"${tmpdir}/1x1.png")" -lt "$(wc -c <'test/1x1.png')" ]
 }

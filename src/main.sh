@@ -23,9 +23,9 @@ if [ "${#}" -ge 1 ]; then
 fi
 
 # setup
+PATH="${PATH}:/src/node_modules/.bin"
 formerdir="${PWD}"
 workdir="$(mktemp -d)"
-PATH="${PATH}:/src/node_modules/.bin"
 cd "${workdir}"
 
 # -- Processing start --
