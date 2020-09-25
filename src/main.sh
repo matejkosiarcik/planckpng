@@ -9,6 +9,7 @@ help() {
     printf ' --brute   Slowest, most efficient optimizations\n'
 }
 
+# parse optimization mode
 mode='default'
 if [ "${#}" -ge 1 ]; then
     case "${1}" in
@@ -21,10 +22,13 @@ if [ "${#}" -ge 1 ]; then
     esac
 fi
 
+# setup
 formerdir="${PWD}"
 workdir="$(mktemp -d)"
 PATH="${PATH}:/src/node_modules/.bin"
 cd "${workdir}"
+
+# -- Processing start --
 
 cp '/file.png' '0.png'
 printf 'Original: %s\n' "$(wc -c <'0.png')"
@@ -69,7 +73,8 @@ cp '5.png' '6.png'
 deflopt /s '6.png' >/dev/null
 printf '\rDeflopt: %s\n' "$(wc -c <'6.png')"
 
-# finish
+# -- Processing end --
+
 cp '6.png' '/file.png'
 cd "${formerdir}"
 rm -rf "${workdir}"
