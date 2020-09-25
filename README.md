@@ -5,6 +5,15 @@
 
 <!-- toc -->
 
+- [What](#what)
+- [Usage](#usage)
+  - [Help](#help)
+  - [Recommendation](#recommendation)
+  - [Batch processing](#batch-processing)
+- [License](#license)
+
+<!-- tocstop -->
+
 ## What
 
 Redopng is png image optimizer based in docker, inspired by these instructions <https://www.reddit.com/r/webdev/wiki/optimization#wiki_png_compression_instructions>.
