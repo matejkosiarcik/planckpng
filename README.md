@@ -1,7 +1,7 @@
-# RE:png docker meta-optimizer
+# millipng - Very slow png optimizer
 
-[![dockerhub automated status](https://img.shields.io/docker/cloud/automated/matejkosiarcik/redopng)](https://hub.docker.com/r/matejkosiarcik/redopng/builds)
-[![dockerhub build status](https://img.shields.io/docker/cloud/build/matejkosiarcik/redopng)](https://hub.docker.com/r/matejkosiarcik/redopng/builds)
+[![dockerhub automated status](https://img.shields.io/docker/cloud/automated/matejkosiarcik/millipng)](https://hub.docker.com/r/matejkosiarcik/millipng/builds)
+[![dockerhub build status](https://img.shields.io/docker/cloud/build/matejkosiarcik/millipng)](https://hub.docker.com/r/matejkosiarcik/millipng/builds)
 
 <!-- toc -->
 
@@ -16,27 +16,34 @@
 
 ## What
 
-Redopng is png image meta-optimizer based in docker, inspired by these instructions <https://www.reddit.com/r/webdev/wiki/optimization#wiki_png_compression_instructions>.
+`millipng` is png image meta-optimizer based in docker, inspired by these
+instructions
+<https://www.reddit.com/r/webdev/wiki/optimization#wiki_png_compression_instructions>.
 
-A meta-optimizer? `Redopng` is not an optimizer by itself, it just calls multiple existing optimizers like `zopflipng`, `optipng`, ...
+A meta-optimizer? `millipng` is not an optimizer by itself,
+it just calls multiple existing optimizers like
+`zopflipng`, `optipng`, `truepng`, `deflopt`, `pngout` ...
+Need I go on?
 
-And docker? It provides consistent runtime for all other operating systems.
+Why docker?
+It provides consistent runtime for all other operating systems.
+Some tools require windows/wine, so you don't need to bother with it as well as other dependencies.
 
 ## Usage
 
 Let's say you want to optimize `image.png` (in current folder), run:
 
 ```sh
-docker run -v "${PWD}/image.png:/file.png" matejkosiarcik/redopng
+docker run -v "${PWD}/image.png:/file.png" matejkosiarcik/millipng
 ```
 
-`redopng` optimizes the image in-place.
+`millipng` optimizes the image in-place.
 
 ### Help
 
 ```sh
-$ docker run matejkosiarcik/redopng --help
-Usage: matejkosiarcik/redopng [--fast|--default|--brute]
+$ docker run matejkosiarcik/millipng --help
+Usage: matejkosiarcik/millipng [--fast|--default|--brute]
 Modes:
  --fast    Fastest, least efficient optimizations
  --default Default optimizations
@@ -45,12 +52,12 @@ Modes:
 
 ### Recommendation
 
-To further optimize images, I recommend calling `pngquant` before `redopng`.
+To further optimize images, I recommend calling `pngquant` before `millipng`.
 Beware `pngquant` is lossy.
 
 ```sh
 pngquant --strip --speed 1 --skip-if-larger --quality 0-95 --force 'image.png' --output 'image.png'
-# call redopng here
+# call millipng here
 ```
 
 ### Batch processing
@@ -58,7 +65,7 @@ pngquant --strip --speed 1 --skip-if-larger --quality 0-95 --force 'image.png' -
 You can process multiple images with find/xargs:
 
 ```sh
-find . -name '*.png' -print0 | xargs -0 -n1 sh -c 'docker run -v "${PWD}/${1}:/file.png" matejkosiarcik/redopng' --
+find . -name '*.png' -print0 | xargs -0 -n1 sh -c 'docker run -v "${PWD}/${1}:/file.png" matejkosiarcik/millipng' --
 ```
 
 ## License
