@@ -12,14 +12,14 @@ function teardown() {
 }
 
 @test 'Help (long)' {
-    run docker run matejkosiarcik/redopng:dev --help
+    run docker run matejkosiarcik/millipng:dev --help
     [ "${status}" -eq 0 ]
     [ "${output}" != '' ]
     grep -i 'usage:' <<<"${output}"
 }
 
 @test 'Help (short)' {
-    run docker run matejkosiarcik/redopng:dev -h
+    run docker run matejkosiarcik/millipng:dev -h
     [ "${status}" -eq 0 ]
     [ "${output}" != '' ]
     grep -i 'usage:' <<<"${output}"
@@ -27,7 +27,7 @@ function teardown() {
 
 @test 'Optimizing file is smaller' {
     cp 'test/1x1.png' "${tmpdir}/1x1.png"
-    run docker run --volume "${tmpdir}/1x1.png:/file.png" matejkosiarcik/redopng:dev --fast
+    run docker run --volume "${tmpdir}/1x1.png:/file.png" matejkosiarcik/millipng:dev --fast
     [ "${status}" -eq 0 ]
     [ "$(wc -c <"${tmpdir}/1x1.png")" -lt "$(wc -c <'test/1x1.png')" ]
 }
