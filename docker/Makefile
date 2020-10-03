@@ -15,12 +15,12 @@ all: build
 
 .PHONY: bootstrap
 bootstrap:
-	cd docker && $(MAKE) bootstrap
+	npm --prefix test install
 
 .PHONY: build
 build:
-	cd docker && $(MAKE) build
+	docker build . -t matejkosiarcik/millipng:dev
 
 .PHONY: test
 test:
-	cd docker && $(MAKE) test
+	npm --prefix test test

@@ -47,8 +47,9 @@ printf '\rPNGOptimizer: %s\n' "$(wc -c <'2.png')"
 
 printf 'OptiPNG...'
 case "${mode}" in
+'fast') optipng -quiet -strip all -o5 '2.png' -out '3.png' ;;
+'default') optipng -quiet -strip all -o7 '2.png' -out '3.png' ;;
 'brute') optipng -quiet -strip all -o7 -zm1-9 '2.png' -out '3.png' ;;
-*) optipng -quiet -strip all -o7 '2.png' -out '3.png' ;;
 esac
 printf '\rOptiPNG: %s\n' "$(wc -c <'3.png')"
 
