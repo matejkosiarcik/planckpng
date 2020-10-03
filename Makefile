@@ -19,7 +19,7 @@ bootstrap:
 
 .PHONY: build
 build:
-	docker build . -t matejkosiarcik/redopng:dev
+	docker build . -t matejkosiarcik/millipng:dev
 
 .PHONY: test
 test:

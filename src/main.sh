@@ -2,7 +2,7 @@
 set -euf
 
 help() {
-    printf 'Usage: matejkosiarcik/redopng [--fast|--default|--brute]\n'
+    printf 'Usage: matejkosiarcik/millipng [--fast|--default|--brute]\n'
     printf 'Modes:\n'
     printf ' --fast    Fastest, least efficient optimizations\n'
     printf ' --default Default optimizations\n'
