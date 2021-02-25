@@ -8,7 +8,7 @@ COPY tools/truepng-0.6.2.5.exe truepng.exe
 COPY tools/deflopt-2.07.exe deflopt.exe
 COPY tools/pngoptimizercl-2.6.2.bin /usr/bin/pngoptimizer
 COPY tools/pngout-20200115.bin /usr/bin/pngout
-# FIXME: COPY tools/defluff-0.3.2.bin /usr/bin/defluff
+COPY tools/defluff-0.3.2.bin /usr/bin/defluff
 COPY package.json .
 COPY package-lock.json .
 

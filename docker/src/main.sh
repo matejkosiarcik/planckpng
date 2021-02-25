@@ -1,6 +1,10 @@
 #!/bin/sh
 set -euf
 
+# TODO: defluff
+# TODO: optipng
+# TODO: oxipng
+
 help() {
     printf 'Usage: matejkosiarcik/millipng [--fast|--default|--brute]\n'
     printf 'Modes:\n'
