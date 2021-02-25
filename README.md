@@ -16,28 +16,29 @@
 
 ## What
 
-`millipng` is png image meta-optimizer based in docker, inspired by these
-instructions
-<https://www.reddit.com/r/webdev/wiki/optimization#wiki_png_compression_instructions>.
+**millipng** is a `.png` meta-optimizer.
 
-A meta-optimizer? `millipng` is not an optimizer by itself,
-it just calls multiple existing optimizers like
-`zopflipng`, `optipng`, `truepng`, `deflopt`, `pngout` ...
-Need I go on?
+A meta-optimizer?
+`millipng` is not an optimizer by itself, it just calls multiple existing optimizers: \[`deflopt`, `defluff`, `pngoptimizer`, `pngout`, `truepng`, `zopflipng`\] in a specific order (below).
+`millipng` is a lossless optimizer (beside exif and alpha channel).
 
-Why docker?
-It provides consistent runtime for all other operating systems.
-Some tools require windows/wine, so you don't need to bother with it as well as other dependencies.
+Order of execution of these tools is based on an analysis here: <https://www.reddit.com/r/webdev/wiki/optimization#wiki_png_compression_instructions>.
+
+`millipng` is distributed as a docker image.
+This ensures consistent runtime environment with no configuration on your side (few of the tools used are only available as windows executables (`.exe`) and so require eg. wine under macOS/Linux, which is conveniently already setup in the image).
 
 ## Usage
 
-Let's say you want to optimize `image.png` (in current folder), run:
+Let's say you want to optimize `image.png` (in current working directory), run:
 
 ```sh
-docker run -v "${PWD}/image.png:/file.png" matejkosiarcik/millipng
+docker run -v "${PWD}/image.png:/file.png" matejkosiarcik/millipng --brute
 ```
 
 `millipng` optimizes the image in-place.
+I recommend `--brute` option for maximum optimizations.
+Be ware though, this takes a long time.
+For quicker optimizations see all the options below.
 
 ### Help
 
@@ -52,17 +53,20 @@ Modes:
 
 ### Recommendation
 
-To further optimize images, I recommend calling `pngquant` before `millipng`.
+To achieve even better optimizion, I recommend calling `pngquant` (or your favorite quantizer instead) before `millipng`.
 Beware `pngquant` is lossy.
+Example:
 
 ```sh
 pngquant --strip --speed 1 --skip-if-larger --quality 0-95 --force 'image.png' --output 'image.png'
-# call millipng here
+docker run -v "${PWD}/image.png:/file.png" matejkosiarcik/millipng --brute
 ```
 
 ### Batch processing
 
-You can process multiple images with find/xargs:
+`millipng` currently only accepts 1 file as an input/output.
+You can process multiple images using find/xargs.
+Example:
 
 ```sh
 find . -name '*.png' -print0 | xargs -0 -n1 sh -c 'docker run -v "${PWD}/${1}:/file.png" matejkosiarcik/millipng' --
@@ -72,6 +76,3 @@ find . -name '*.png' -print0 | xargs -0 -n1 sh -c 'docker run -v "${PWD}/${1}:/f
 
 The project is licensed under LGPLv3.
 See [LICENSE.txt](./LICENSE.txt) for full details.
-
-TL;DR: you can use the project in your open/closed source apps, but if you make
-modifications to it, you should make them (as in modifications, not apps) open.
