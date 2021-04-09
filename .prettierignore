@@ -1,0 +1,16 @@
+# build artifacts
+_site/
+.bundle/
+backstop_data/
+build/
+dist/
+public/
+tmp/
+
+# dependencies
+node_modules/
+venv/
+
+# files
+*.js
+*.ts
