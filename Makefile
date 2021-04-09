@@ -19,7 +19,7 @@ bootstrap:
 
 .PHONY: build
 build:
-	cd docker && $(MAKE) build
+	docker build . --tag matejkosiarcik/millipng:dev
 
 .PHONY: test
 test:
