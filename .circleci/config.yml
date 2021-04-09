@@ -5,6 +5,7 @@ workflows:
   circleci-build:
     jobs:
       - azlint
+      - lint
       - build
 
 jobs:
@@ -13,8 +14,14 @@ jobs:
       - image: matejkosiarcik/azlint
     steps:
       - checkout
-      - setup_remote_docker
       - run: azlint
+
+  lint:
+    docker:
+      - image: node:lts
+    steps:
+      - checkout
+      - run: npm ci && npm run lint
 
   build:
     docker:
