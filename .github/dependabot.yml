@@ -1,12 +1,12 @@
 version: 2
 
 updates:
-  - package-ecosystem: npm
-    directory: "/docker/"
-    versioning-strategy: increase
+  # Main docker
+  - package-ecosystem: docker
+    directory: "/docker"
     schedule:
       interval: daily
-      time: "01:00"
+      time: "02:00"
       timezone: "Europe/Bratislava"
     reviewers:
       - matejkosiarcik
@@ -16,12 +16,13 @@ updates:
     labels:
       - automerge
 
-  # Zsh
-  - package-ecosystem: docker
-    directory: "/docker"
+  # Dependencies
+  - package-ecosystem: npm
+    directory: "/docker/dependencies"
+    versioning-strategy: increase
     schedule:
       interval: daily
-      time: "02:00"
+      time: "01:00"
       timezone: "Europe/Bratislava"
     reviewers:
       - matejkosiarcik
