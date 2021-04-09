@@ -2,7 +2,7 @@ linters:
   shellcheck:
     shell: sh
   remarklint:
-    fixer: false
+    fixer: true
   yamllint:
     config: .yamllint.yml
 
