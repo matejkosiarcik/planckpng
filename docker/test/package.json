@@ -4,6 +4,6 @@
     "test": "bats --recursive ."
   },
   "dependencies": {
-    "bats": "^1.2.1"
+    "bats": "^1.3.0"
   }
 }

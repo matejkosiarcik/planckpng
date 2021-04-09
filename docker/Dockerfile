@@ -9,8 +9,7 @@ COPY tools/deflopt-2.07.exe /usr/bin/deflopt.exe
 COPY tools/pngoptimizercl-2.6.2.bin /usr/bin/pngoptimizer
 COPY tools/pngout-20200115.bin /usr/bin/pngout
 COPY tools/defluff-0.3.2.bin /usr/bin/defluff
-COPY package.json .
-COPY package-lock.json .
+COPY package.json package-lock.json ./
 
 # hadolint ignore=SC2016,DL4006
 RUN chmod a+x main && \
