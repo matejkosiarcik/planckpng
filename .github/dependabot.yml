@@ -1,12 +1,27 @@
 version: 2
 
 updates:
+  # Maintain dependencies for GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: daily
+      time: "00:30"
+      timezone: "Europe/Bratislava"
+    reviewers:
+      - matejkosiarcik
+    assignees:
+      - matejkosiarcik
+    open-pull-requests-limit: 1
+    labels:
+      - automerge
+
   # Main docker
   - package-ecosystem: docker
     directory: "/docker"
     schedule:
       interval: daily
-      time: "02:00"
+      time: "01:00"
       timezone: "Europe/Bratislava"
     reviewers:
       - matejkosiarcik
@@ -22,7 +37,7 @@ updates:
     versioning-strategy: increase
     schedule:
       interval: daily
-      time: "01:00"
+      time: "01:30"
       timezone: "Europe/Bratislava"
     reviewers:
       - matejkosiarcik
