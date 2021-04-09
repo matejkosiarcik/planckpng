@@ -13,14 +13,6 @@ SHELL := /bin/sh
 .PHONY: all
 all: build
 
-.PHONY: bootstrap
-bootstrap:
-	npm --prefix test install
-
 .PHONY: build
 build:
 	docker build . -t matejkosiarcik/millipng:dev
-
-.PHONY: test
-test:
-	npm --prefix test test

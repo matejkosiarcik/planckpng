@@ -15,7 +15,7 @@ all: build
 
 .PHONY: bootstrap
 bootstrap:
-	cd docker && $(MAKE) bootstrap
+	npm --prefix test install
 
 .PHONY: build
 build:
@@ -23,4 +23,4 @@ build:
 
 .PHONY: test
 test:
-	cd docker && $(MAKE) test
+	npm --prefix test test
