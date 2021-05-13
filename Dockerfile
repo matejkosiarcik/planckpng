@@ -22,7 +22,8 @@ RUN chmod a+x main && \
     curl -sL https://deb.nodesource.com/setup_lts.x | bash - && \
     apt-get install --yes --no-install-recommends nodejs && \
     rm -rf /var/lib/apt/lists/* && \
-    npm ci
+    npm ci && \
+    npm prune --production
 
 ENTRYPOINT [ "./main" ]
 CMD []
