@@ -16,7 +16,7 @@ run_truepng() {
     cd "${workdir}"
 
     # run
-    printf 'TruePNG...'
+    # printf 'TruePNG...'
     case "${mode}" in
     'fast') truepng 'input.png' /o 2 /quiet /y /out 'output.png' >/dev/null 2>&1 || true ;;
     'default') truepng 'input.png' /o 3 /quiet /y /out 'output.png' >/dev/null 2>&1 || true ;;
@@ -24,8 +24,8 @@ run_truepng() {
     'ultra-brute') truepng 'input.png' /o max /quiet /y /out 'output.png' >/dev/null 2>&1 || true ;;
     *) printf 'Unrecognised mode %s\n' "$mode" >&2; exit 1;;
     esac
-    printf '\rTruePNG: '
-    statistics 'input.png' 'output.png'
+    # printf '\rTruePNG: '
+    # statistics 'input.png' 'output.png'
 
     # cleanup
     cd - >/dev/null
@@ -42,10 +42,10 @@ run_pngoptimizer() {
     cd "${workdir}"
 
     # run
-    printf 'PNG Optimizer...'
+    # printf 'PNG Optimizer...'
     pngoptimizer -AvoidGreyWithSimpleTransparency -IgnoreAnimatedGifs -KeepBackgroundColor:R -KeepTextualData:R -stdio <'input.png' >'output.png'
-    printf '\rPNG Optimizer: '
-    statistics 'input.png' 'output.png'
+    # printf '\rPNG Optimizer: '
+    # statistics 'input.png' 'output.png'
 
     # cleanup
     cd - >/dev/null
@@ -62,7 +62,7 @@ run_optipng() {
     cd "${workdir}"
 
     # run
-    printf 'OptiPNG...'
+    # printf 'OptiPNG...'
     case "${mode}" in
     'fast') optipng -quiet -strip all -o3 'input.png' -out 'output.png' ;;
     'default') optipng -quiet -strip all -o5 'input.png' -out 'output.png' ;;
@@ -70,8 +70,8 @@ run_optipng() {
     'ultra-brute') optipng -quiet -strip all -o7 -zm1-9 'input.png' -out 'output.png' ;;
     *) printf 'Unrecognised mode %s\n' "$mode" >&2; exit 1;;
     esac
-    printf '\rOptiPNG: '
-    statistics 'input.png' 'output.png'
+    # printf '\rOptiPNG: '
+    # statistics 'input.png' 'output.png'
 
     # cleanup
     cd - >/dev/null
@@ -88,7 +88,7 @@ run_zopflipng() {
     cd "${workdir}"
 
     # run
-    printf 'ZopfliPNG...'
+    # printf 'ZopfliPNG...'
     case "${mode}" in
     'fast') zopflipng -y --iterations=100 --filters=01234mepb --lossy_8bit --lossy_transparent 'input.png' 'output.png' >/dev/null 2>&1 ;;
     'default') zopflipng -y --iterations=250 --filters=01234mepb --lossy_8bit --lossy_transparent 'input.png' 'output.png' >/dev/null 2>&1 ;;
@@ -96,8 +96,8 @@ run_zopflipng() {
     'ultra-brute') zopflipng -y --iterations=1000 --filters=01234mepb --lossy_8bit --lossy_transparent 'input.png' 'output.png' >/dev/null 2>&1 ;;
     *) printf 'Unrecognised mode %s\n' "$mode" >&2; exit 1;;
     esac
-    printf '\rZopfliPNG: '
-    statistics 'input.png' 'output.png'
+    # printf '\rZopfliPNG: '
+    # statistics 'input.png' 'output.png'
 
     # cleanup
     cd - >/dev/null
@@ -114,10 +114,10 @@ run_pngout() {
     cd "${workdir}"
 
     # run
-    printf 'PNGOut...'
+    # printf 'PNGOut...'
     pngout -s0 -k1 -y 'input.png' 'output.png' >/dev/null || true
-    printf '\rPNGOut: '
-    statistics 'input.png' 'output.png'
+    # printf '\rPNGOut: '
+    # statistics 'input.png' 'output.png'
 
     # cleanup
     cd - >/dev/null
@@ -135,10 +135,10 @@ run_deflopt() {
     cp 'input.png' 'output.png'
 
     # run
-    printf 'Deflopt...'
+    # printf 'Deflopt...'
     deflopt /s 'output.png' >/dev/null
-    printf '\rDeflopt: '
-    statistics 'input.png' 'output.png'
+    # printf '\rDeflopt: '
+    # statistics 'input.png' 'output.png'
 
     # cleanup
     cd - >/dev/null

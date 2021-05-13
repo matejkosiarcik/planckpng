@@ -4,14 +4,11 @@ from __future__ import (
     absolute_import, division, print_function, unicode_literals
 )
 import argparse
-import datetime
 import sys
 import threading
 import time
-import platform
 import subprocess
 import multiprocessing
-import random
 import os
 import re
 from typing import List, Deque, Optional
@@ -24,8 +21,14 @@ import enum
 log = logging.Logger('default', logging.INFO)
 
 # shared state
-lock = threading.Lock()
-images = collections.deque()
+input_paths = collections.deque()
+input_lock = threading.Lock()
+
+started_lock = threading.Lock()
+started_queue = collections.deque()
+finished_lock = threading.Lock()
+finished_queue = collections.deque()
+kill_progress = False
 
 
 class OptimizationLevel(enum.Enum):
@@ -38,8 +41,22 @@ class OptimizationLevel(enum.Enum):
         return self.value
 
 
+class Termcode(enum.Enum):
+    green = '\33[32m'
+    reset = '\33[0m'
+
+    def __str__(self):
+        if sys.stdout.isatty():
+            return str(self.value)
+        else:
+            return ''
+
+
 # Find all png files to optimize
 def find_images() -> Deque[str]:
+    # paths = [f'/img/{x}.png' for x in range(10)]
+    # return collections.deque(paths)
+
     if not os.path.exists('/img'):
         return collections.deque([])
 
@@ -54,25 +71,64 @@ def find_images() -> Deque[str]:
     return collections.deque(results)
 
 
-def image_worker(dry_run: bool, level: OptimizationLevel):
-    global images, lock
+# This is a dedicated thread for displaying progress
+def progress_worker():
+    global input_lock, input_paths, started_lock, started_queue, finished_lock, finished_queue
 
     while True:
-        with lock:
-            if len(images) == 0:
-                break
-            image_path = images.popleft()
+        time.sleep(0.25)
 
-        log.info(f'Optimizing {image_path}')
+        # first copy work items to our temporarary work queue to not block other threads
+        temporary_work_queue = collections.deque()
+        with started_lock:
+            for _ in range(len(started_queue)):
+                temporary_work_queue.append(started_queue.popleft())
+
+        # process current work items
+        for _ in range(len(temporary_work_queue)):
+            item = temporary_work_queue.popleft()
+            item = re.sub(r'^/img/', '', item)
+            print(item)
+
+        # first copy work items to our temporarary work queue to not block other threads
+        temporary_work_queue = collections.deque()
+        with finished_lock:
+            for _ in range(len(finished_queue)):
+                temporary_work_queue.append(finished_queue.popleft())
+
+        # process current work items
+        for _ in range(len(temporary_work_queue)):
+            item = temporary_work_queue.popleft()
+            item = re.sub(r'^/img/', '', item)
+            print(f'{item} {Termcode.green}✔{Termcode.reset}')
+
+        if kill_progress:
+            break
+
+
+def image_worker(dry_run: bool, level: OptimizationLevel):
+    global input_paths, input_lock, started_lock, started_queue, finished_lock, finished_queue
+
+    while True:
+        with input_lock:
+            if len(input_paths) == 0:
+                break
+            image_path = input_paths.popleft()
+
+        with started_lock:
+            started_queue.append(image_path)
+
         command = ['sh', 'main.sh', image_path, level.value]
         if not dry_run:
-            log.debug('Calling: ' + ' '.join(command))
             subprocess.check_call(command)
-        log.info(f'Optimized {image_path}')
+            # time.sleep(random.uniform(0.25, 2.5))
+
+        with finished_lock:
+            finished_queue.append(image_path)
 
 
 def main(argv: Optional[List[str]]):
-    global images, log
+    global input_paths, log, kill_progress
 
     log.addHandler(logging.StreamHandler(sys.stderr))
 
@@ -102,7 +158,7 @@ def main(argv: Optional[List[str]]):
         log.setLevel(logging.ERROR)
 
     # prepare files to optimize
-    images = find_images()
+    input_paths = find_images()
 
     thread_count = args.jobs
     if thread_count < 0:
@@ -113,12 +169,19 @@ def main(argv: Optional[List[str]]):
         thread_count = multiprocessing.cpu_count()
     log.debug(f'Using {thread_count} threads')
 
+    # start this deamon
+    progress_work = threading.Thread(target=progress_worker)
+
     # start threads and wait for finish
     threads = [threading.Thread(target=image_worker, args=[args.dry_run, args.level]) for _ in range(thread_count)]
     for thread in threads:
         thread.start()
+    progress_work.start()
     for thread in threads:
         thread.join()
+
+    kill_progress = True
+    progress_work.join()
 
 
 if __name__ == "__main__":
