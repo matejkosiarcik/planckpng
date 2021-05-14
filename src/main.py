@@ -10,13 +10,12 @@ import time
 import subprocess
 import multiprocessing
 import os
-import random
 import re
-from typing import List, Deque, Optional
 import collections
 import logging
 import enum
 import signal
+from typing import List, Deque, Optional
 
 
 # default logging config
@@ -64,9 +63,6 @@ def signal_handler(signal, frame):
 
 # Find all png files to optimize
 def find_images() -> Deque[str]:
-    # paths = [f'/img/{x}.png' for x in range(20)]
-    # return collections.deque(paths)
-
     if not os.path.exists('/img'):
         return collections.deque([])
 
@@ -170,8 +166,6 @@ def image_worker(dry_run: bool, level: OptimizationLevel):
         command = ['sh', 'main.sh', image_path, level.value]
         if not dry_run:
             subprocess.check_call(command)
-        else:
-            time.sleep(random.uniform(1, 15))
 
         with finished_lock:
             finished_queue.append(image_path)

@@ -5,3 +5,5 @@ Thumbs.db
 [Dd]esktop.ini
 *~
 venv/
+.bundle/
+gitman/
