@@ -24,3 +24,11 @@ build:
 .PHONY: test
 test:
 	npm --prefix test test
+
+.PHONY: record-bootstrap
+record-bootstrap:
+	npm --prefix record ci
+
+.PHONY: record
+record:
+	sh record/run.sh

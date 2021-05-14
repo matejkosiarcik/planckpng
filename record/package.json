@@ -1,0 +1,10 @@
+{
+  "private": true,
+  "name": "example",
+  "scripts": {
+    "record": ""
+  },
+  "devDependencies": {
+    "asciicast2gif": "^0.2.1"
+  }
+}
