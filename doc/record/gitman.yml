@@ -23,6 +23,6 @@ sources_locked:
       -
     scripts:
       -
-default_group: ''
+default_group: ""
 groups:
   -
