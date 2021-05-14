@@ -5,7 +5,8 @@ cd "$(dirname "$0")"
 . ./gitman/demo-magic/demo-magic.sh
 TYPE_SPEED=6
 
-cd .. # cd to project root
+# TODO: add more images for recording
+cd ../.. # cd to project root
 workdir="$(mktemp -d)"
 cp -R test/ "$workdir/"
 cd "$workdir"
