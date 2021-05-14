@@ -3,8 +3,8 @@
 statistics() {
     input_size="$(wc -c <"${1}")"
     output_size="$(wc -c <"${2}")"
-    optimization_ratio="$(printf 'scale=2; %s / %s * 100\n' "${output_size}" "${input_size}" | bc)"
-    printf '%s -> %s [%s%%]\n' "${input_size}" "${output_size}" "${optimization_ratio}"
+    optimization_ratio="$(printf 'scale=2; %s / %s * 100\n' "$output_size" "$input_size" | bc)"
+    printf '%s -> %s [%s%%]\n' "$input_size" "$output_size" "$optimization_ratio"
 }
 
 run_truepng() {
@@ -13,11 +13,11 @@ run_truepng() {
     mode="${2}"
     workdir="$(mktemp -d)"
     cp "$image" "$workdir/input.png"
-    cd "${workdir}"
+    cd "$workdir"
 
     # run
     # printf 'TruePNG...'
-    case "${mode}" in
+    case "$mode" in
     'fast') truepng 'input.png' /o 2 /quiet /y /out 'output.png' >/dev/null 2>&1 || true ;;
     'default') truepng 'input.png' /o 3 /quiet /y /out 'output.png' >/dev/null 2>&1 || true ;;
     'brute') truepng 'input.png' /o 4 /quiet /y /out 'output.png' >/dev/null 2>&1 || true ;;
@@ -29,8 +29,8 @@ run_truepng() {
 
     # cleanup
     cd - >/dev/null
-    cp "$workdir/output.png" "${image}"
-    rm -rf "${workdir}"
+    cp "$workdir/output.png" "$image"
+    rm -rf "$workdir"
 }
 
 run_pngoptimizer() {
@@ -39,7 +39,7 @@ run_pngoptimizer() {
     mode="${2}"
     workdir="$(mktemp -d)"
     cp "$image" "$workdir/input.png"
-    cd "${workdir}"
+    cd "$workdir"
 
     # run
     # printf 'PNG Optimizer...'
@@ -49,8 +49,8 @@ run_pngoptimizer() {
 
     # cleanup
     cd - >/dev/null
-    cp "$workdir/output.png" "${image}"
-    rm -rf "${workdir}"
+    cp "$workdir/output.png" "$image"
+    rm -rf "$workdir"
 }
 
 run_optipng() {
@@ -59,11 +59,11 @@ run_optipng() {
     mode="${2}"
     workdir="$(mktemp -d)"
     cp "$image" "$workdir/input.png"
-    cd "${workdir}"
+    cd "$workdir"
 
     # run
     # printf 'OptiPNG...'
-    case "${mode}" in
+    case "$mode" in
     'fast') optipng -quiet -strip all -o3 'input.png' -out 'output.png' ;;
     'default') optipng -quiet -strip all -o5 'input.png' -out 'output.png' ;;
     'brute') optipng -quiet -strip all -o7 'input.png' -out 'output.png' ;;
@@ -75,8 +75,8 @@ run_optipng() {
 
     # cleanup
     cd - >/dev/null
-    cp "$workdir/output.png" "${image}"
-    rm -rf "${workdir}"
+    cp "$workdir/output.png" "$image"
+    rm -rf "$workdir"
 }
 
 run_zopflipng() {
@@ -85,11 +85,11 @@ run_zopflipng() {
     mode="${2}"
     workdir="$(mktemp -d)"
     cp "$image" "$workdir/input.png"
-    cd "${workdir}"
+    cd "$workdir"
 
     # run
     # printf 'ZopfliPNG...'
-    case "${mode}" in
+    case "$mode" in
     'fast') zopflipng -y --iterations=100 --filters=01234mepb --lossy_8bit --lossy_transparent 'input.png' 'output.png' >/dev/null 2>&1 ;;
     'default') zopflipng -y --iterations=250 --filters=01234mepb --lossy_8bit --lossy_transparent 'input.png' 'output.png' >/dev/null 2>&1 ;;
     'brute') zopflipng -y --iterations=500 --filters=01234mepb --lossy_8bit --lossy_transparent 'input.png' 'output.png' >/dev/null 2>&1 ;;
@@ -101,8 +101,8 @@ run_zopflipng() {
 
     # cleanup
     cd - >/dev/null
-    cp "$workdir/output.png" "${image}"
-    rm -rf "${workdir}"
+    cp "$workdir/output.png" "$image"
+    rm -rf "$workdir"
 }
 
 run_pngout() {
@@ -111,7 +111,7 @@ run_pngout() {
     mode="${2}"
     workdir="$(mktemp -d)"
     cp "$image" "$workdir/input.png"
-    cd "${workdir}"
+    cd "$workdir"
 
     # run
     # printf 'PNGOut...'
@@ -121,8 +121,8 @@ run_pngout() {
 
     # cleanup
     cd - >/dev/null
-    cp "$workdir/output.png" "${image}"
-    rm -rf "${workdir}"
+    cp "$workdir/output.png" "$image"
+    rm -rf "$workdir"
 }
 
 run_deflopt() {
@@ -131,7 +131,7 @@ run_deflopt() {
     mode="${2}"
     workdir="$(mktemp -d)"
     cp "$image" "$workdir/input.png"
-    cd "${workdir}"
+    cd "$workdir"
     cp 'input.png' 'output.png'
 
     # run
@@ -142,6 +142,6 @@ run_deflopt() {
 
     # cleanup
     cd - >/dev/null
-    cp "$workdir/output.png" "${image}"
-    rm -rf "${workdir}"
+    cp "$workdir/output.png" "$image"
+    rm -rf "$workdir"
 }

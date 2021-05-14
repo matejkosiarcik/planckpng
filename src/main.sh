@@ -8,7 +8,7 @@ fi
 
 image_path="$1"
 mode="$2"
-PATH="${PATH}:/src/node_modules/.bin"
+PATH="$PATH:/src/node_modules/.bin"
 . ./utils.sh
 
 if [ ! -e "$image_path" ]; then
