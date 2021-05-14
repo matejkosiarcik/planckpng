@@ -46,3 +46,32 @@ updates:
     open-pull-requests-limit: 1
     labels:
       - automerge
+
+  # Misc
+  - package-ecosystem: npm
+    directory: "/doc/record"
+    versioning-strategy: increase
+    schedule:
+      interval: daily
+      time: "02:00"
+      timezone: "Europe/Bratislava"
+    reviewers:
+      - matejkosiarcik
+    assignees:
+      - matejkosiarcik
+    open-pull-requests-limit: 1
+    labels:
+      - automerge
+  - package-ecosystem: pip
+    directory: "/doc/record"
+    schedule:
+      interval: daily
+      time: "02:30"
+      timezone: "Europe/Bratislava"
+    reviewers:
+      - matejkosiarcik
+    assignees:
+      - matejkosiarcik
+    open-pull-requests-limit: 1
+    labels:
+      - automerge
