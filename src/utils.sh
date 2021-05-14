@@ -1,3 +1,4 @@
+#!/bin/sh
 # Contains helper functions for individual tools
 
 statistics() {
@@ -22,7 +23,10 @@ run_truepng() {
     'default') truepng 'input.png' /o 3 /quiet /y /out 'output.png' >/dev/null 2>&1 || true ;;
     'brute') truepng 'input.png' /o 4 /quiet /y /out 'output.png' >/dev/null 2>&1 || true ;;
     'ultra-brute') truepng 'input.png' /o max /quiet /y /out 'output.png' >/dev/null 2>&1 || true ;;
-    *) printf 'Unrecognised mode %s\n' "$mode" >&2; exit 1;;
+    *)
+        printf 'Unrecognised mode %s\n' "$mode" >&2
+        exit 1
+        ;;
     esac
     # printf '\rTruePNG: '
     # statistics 'input.png' 'output.png'
@@ -68,7 +72,10 @@ run_optipng() {
     'default') optipng -quiet -strip all -o5 'input.png' -out 'output.png' ;;
     'brute') optipng -quiet -strip all -o7 'input.png' -out 'output.png' ;;
     'ultra-brute') optipng -quiet -strip all -o7 -zm1-9 'input.png' -out 'output.png' ;;
-    *) printf 'Unrecognised mode %s\n' "$mode" >&2; exit 1;;
+    *)
+        printf 'Unrecognised mode %s\n' "$mode" >&2
+        exit 1
+        ;;
     esac
     # printf '\rOptiPNG: '
     # statistics 'input.png' 'output.png'
@@ -94,7 +101,10 @@ run_zopflipng() {
     'default') zopflipng -y --iterations=250 --filters=01234mepb --lossy_8bit --lossy_transparent 'input.png' 'output.png' >/dev/null 2>&1 ;;
     'brute') zopflipng -y --iterations=500 --filters=01234mepb --lossy_8bit --lossy_transparent 'input.png' 'output.png' >/dev/null 2>&1 ;;
     'ultra-brute') zopflipng -y --iterations=1000 --filters=01234mepb --lossy_8bit --lossy_transparent 'input.png' 'output.png' >/dev/null 2>&1 ;;
-    *) printf 'Unrecognised mode %s\n' "$mode" >&2; exit 1;;
+    *)
+        printf 'Unrecognised mode %s\n' "$mode" >&2
+        exit 1
+        ;;
     esac
     # printf '\rZopfliPNG: '
     # statistics 'input.png' 'output.png'
