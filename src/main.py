@@ -10,11 +10,13 @@ import time
 import subprocess
 import multiprocessing
 import os
+import random
 import re
 from typing import List, Deque, Optional
 import collections
 import logging
 import enum
+import signal
 
 
 # default logging config
@@ -42,8 +44,11 @@ class OptimizationLevel(enum.Enum):
 
 
 class Termcode(enum.Enum):
-    green = '\33[32m'
     reset = '\33[0m'
+    green = '\33[32m'
+    up_nlines = '\33[0A'
+    down_nlines = '\33[0B'
+    erase_line = '\33[2K'
 
     def __str__(self):
         if sys.stdout.isatty():
@@ -52,9 +57,14 @@ class Termcode(enum.Enum):
             return ''
 
 
+# gracefully exit on SIGINT
+def signal_handler(signal, frame):
+    sys.exit(0)
+
+
 # Find all png files to optimize
 def find_images() -> Deque[str]:
-    # paths = [f'/img/{x}.png' for x in range(10)]
+    # paths = [f'/img/{x}.png' for x in range(20)]
     # return collections.deque(paths)
 
     if not os.path.exists('/img'):
@@ -75,33 +85,72 @@ def find_images() -> Deque[str]:
 def progress_worker():
     global input_lock, input_paths, started_lock, started_queue, finished_lock, finished_queue
 
-    while True:
-        time.sleep(0.25)
+    spinner_parts = ['⌞', '⌟', '⌝', '⌜']
+    spinner_index = 0
 
-        # first copy work items to our temporarary work queue to not block other threads
-        temporary_work_queue = collections.deque()
+    work_indices = dict() # Dict[str, int]
+    work_queue = collections.deque() # Deque[Tuple[str, bool]]
+    first_working_index = 0 # indicates last (the soonest) item to be still procesing
+
+    while True:
+        time.sleep(0.15)
+
+        # first copy started items to our temporary queue to not block other threads
+        temporary_started_queue = collections.deque()
         with started_lock:
             for _ in range(len(started_queue)):
-                temporary_work_queue.append(started_queue.popleft())
+                temporary_started_queue.append(started_queue.popleft())
 
-        # process current work items
-        for _ in range(len(temporary_work_queue)):
-            item = temporary_work_queue.popleft()
-            item = re.sub(r'^/img/', '', item)
-            print(item)
+        # save current work items
+        for _ in range(len(temporary_started_queue)):
+            item = temporary_started_queue.popleft()
+            work_indices[item] = len(work_queue)
+            work_queue.append((item, True))
+            print(item, end='\n')
 
-        # first copy work items to our temporarary work queue to not block other threads
-        temporary_work_queue = collections.deque()
+        # basically show working items in terminal
+        for i in range(first_working_index, len(work_queue)):
+            if not work_queue[i][1]:
+                continue
+            offset_from_last = len(work_queue) - i
+            item = re.sub(r'^/img/', '', work_queue[i][0])
+            up_command = re.sub(r'0', str(offset_from_last), Termcode.up_nlines.value)
+            down_command = re.sub(r'0', str(offset_from_last), Termcode.down_nlines.value)
+            print(f'{up_command}\r', end='')
+            print(f'{Termcode.erase_line}\r{item} {spinner_parts[spinner_index]}', end='')
+            print(f'{down_command}\r', end='')
+
+        # first copy finished items to our temporary queue to not block other threads
+        temporary_finished_queue = collections.deque()
         with finished_lock:
             for _ in range(len(finished_queue)):
-                temporary_work_queue.append(finished_queue.popleft())
+                temporary_finished_queue.append(finished_queue.popleft())
 
         # process current work items
-        for _ in range(len(temporary_work_queue)):
-            item = temporary_work_queue.popleft()
-            item = re.sub(r'^/img/', '', item)
-            print(f'{item} {Termcode.green}✔{Termcode.reset}')
+        for _ in range(len(temporary_finished_queue)):
+            item = temporary_finished_queue.popleft()
+            work_index = work_indices[item]
+            work_queue[work_index] = (item, False)
+            if work_index == first_working_index:
+                while len(work_queue) > first_working_index and work_queue[first_working_index][1] == False:
+                    item = re.sub(r'^/img/', '', work_queue[first_working_index][0])
+                    offset_from_last = len(work_queue) - first_working_index
+                    up_command = re.sub(r'0', str(offset_from_last), Termcode.up_nlines.value)
+                    down_command = re.sub(r'0', str(offset_from_last), Termcode.down_nlines.value)
+                    print(f'{up_command}\r', end='')
+                    print(f'{Termcode.erase_line}\r{item} {Termcode.green}✔{Termcode.reset}', end='')
+                    print(f'{down_command}\r', end='')
+                    first_working_index += 1
+            else:
+                item = re.sub(r'^/img/', '', work_queue[work_index][0])
+                offset_from_last = len(work_queue) - work_index
+                up_command = re.sub(r'0', str(offset_from_last), Termcode.up_nlines.value)
+                down_command = re.sub(r'0', str(offset_from_last), Termcode.down_nlines.value)
+                print(f'{up_command}\r', end='')
+                print(f'{Termcode.erase_line}\r{item} {Termcode.green}✔{Termcode.reset}', end='')
+                print(f'{down_command}\r', end='')
 
+        spinner_index = (spinner_index + 1) % len(spinner_parts)
         if kill_progress:
             break
 
@@ -121,7 +170,8 @@ def image_worker(dry_run: bool, level: OptimizationLevel):
         command = ['sh', 'main.sh', image_path, level.value]
         if not dry_run:
             subprocess.check_call(command)
-            # time.sleep(random.uniform(0.25, 2.5))
+        else:
+            time.sleep(random.uniform(1, 15))
 
         with finished_lock:
             finished_queue.append(image_path)
@@ -130,6 +180,7 @@ def image_worker(dry_run: bool, level: OptimizationLevel):
 def main(argv: Optional[List[str]]):
     global input_paths, log, kill_progress
 
+    signal.signal(signal.SIGINT, signal_handler)
     log.addHandler(logging.StreamHandler(sys.stderr))
 
     if argv is None:
@@ -170,10 +221,10 @@ def main(argv: Optional[List[str]]):
     log.debug(f'Using {thread_count} threads')
 
     # start this deamon
-    progress_work = threading.Thread(target=progress_worker)
+    progress_work = threading.Thread(target=progress_worker, daemon=True)
 
     # start threads and wait for finish
-    threads = [threading.Thread(target=image_worker, args=[args.dry_run, args.level]) for _ in range(thread_count)]
+    threads = [threading.Thread(target=image_worker, daemon=True, args=[args.dry_run, args.level]) for _ in range(thread_count)]
     for thread in threads:
         thread.start()
     progress_work.start()
