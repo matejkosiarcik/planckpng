@@ -1,16 +1,16 @@
 # Contains helper functions for individual tools
 
 statistics() {
-    input_size="$(wc -c <"${1}")"
-    output_size="$(wc -c <"${2}")"
+    input_size="$(wc -c <"$1")"
+    output_size="$(wc -c <"$2")"
     optimization_ratio="$(printf 'scale=2; %s / %s * 100\n' "$output_size" "$input_size" | bc)"
     printf '%s -> %s [%s%%]\n' "$input_size" "$output_size" "$optimization_ratio"
 }
 
 run_truepng() {
     # prepare
-    image="${1}"
-    mode="${2}"
+    image="$1"
+    mode="$2"
     workdir="$(mktemp -d)"
     cp "$image" "$workdir/input.png"
     cd "$workdir"
@@ -35,8 +35,8 @@ run_truepng() {
 
 run_pngoptimizer() {
     # prepare
-    image="${1}"
-    mode="${2}"
+    image="$1"
+    mode="$2"
     workdir="$(mktemp -d)"
     cp "$image" "$workdir/input.png"
     cd "$workdir"
@@ -55,8 +55,8 @@ run_pngoptimizer() {
 
 run_optipng() {
     # prepare
-    image="${1}"
-    mode="${2}"
+    image="$1"
+    mode="$2"
     workdir="$(mktemp -d)"
     cp "$image" "$workdir/input.png"
     cd "$workdir"
@@ -81,8 +81,8 @@ run_optipng() {
 
 run_zopflipng() {
     # prepare
-    image="${1}"
-    mode="${2}"
+    image="$1"
+    mode="$2"
     workdir="$(mktemp -d)"
     cp "$image" "$workdir/input.png"
     cd "$workdir"
@@ -107,8 +107,8 @@ run_zopflipng() {
 
 run_pngout() {
     # prepare
-    image="${1}"
-    mode="${2}"
+    image="$1"
+    mode="$2"
     workdir="$(mktemp -d)"
     cp "$image" "$workdir/input.png"
     cd "$workdir"
@@ -127,8 +127,8 @@ run_pngout() {
 
 run_deflopt() {
     # prepare
-    image="${1}"
-    mode="${2}"
+    image="$1"
+    mode="$2"
     workdir="$(mktemp -d)"
     cp "$image" "$workdir/input.png"
     cd "$workdir"

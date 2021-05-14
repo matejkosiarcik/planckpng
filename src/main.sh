@@ -1,7 +1,7 @@
 #!/bin/sh
 set -euf
 
-if [ "${#}" -lt 2 ]; then
+if [ "$#" -lt 2 ]; then
     printf 'Not enough arguments. Expecting `./main.sh <path> <level>`\n' >&2
     exit 1
 fi

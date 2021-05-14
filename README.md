@@ -32,7 +32,7 @@ This ensures consistent runtime environment with no configuration on your side (
 Let's say you want to optimize `image.png` (in current working directory), run:
 
 ```sh
-docker run -v "${PWD}/image.png:/file.png" matejkosiarcik/millipng --brute
+docker run -v "$PWD/image.png:/file.png" matejkosiarcik/millipng --brute
 ```
 
 `millipng` optimizes the image in-place.
@@ -59,7 +59,7 @@ Example:
 
 ```sh
 pngquant --strip --speed 1 --skip-if-larger --quality 0-95 --force 'image.png' --output 'image.png'
-docker run -v "${PWD}/image.png:/file.png" matejkosiarcik/millipng --brute
+docker run -v "$PWD/image.png:/file.png" matejkosiarcik/millipng --brute
 ```
 
 ### Batch processing
@@ -69,7 +69,7 @@ You can process multiple images using find/xargs.
 Example:
 
 ```sh
-find . -name '*.png' -print0 | xargs -0 -n1 sh -c 'docker run -v "${PWD}/${1}:/file.png" matejkosiarcik/millipng' --
+find . -name '*.png' -print0 | xargs -0 -n1 sh -c 'docker run -v "$PWD}/${1:/file.png" matejkosiarcik/millipng' --
 ```
 
 ## License
