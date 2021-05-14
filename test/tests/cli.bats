@@ -26,17 +26,15 @@ function teardown() {
 }
 
 @test 'Get version (long)' {
-    skip
     run docker run matejkosiarcik/millipng:dev --version
     [ "${status}" -eq 0 ]
     [ "${output}" != '' ]
-    grep -E 'millipng v[0-9]+\.[0-9]+\.[0-9]+' <<<"${output}"
+    grep -E 'millipng [0-9]+\.[0-9]+\.[0-9]+' <<<"${output}"
 }
 
 @test 'Get version (short)' {
-    skip
     run docker run matejkosiarcik/millipng:dev -V
     [ "${status}" -eq 0 ]
     [ "${output}" != '' ]
-    grep -E 'millipng v[0-9]+\.[0-9]+\.[0-9]+' <<<"${output}"
+    grep -E 'millipng [0-9]+\.[0-9]+\.[0-9]+' <<<"${output}"
 }

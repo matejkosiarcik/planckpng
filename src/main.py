@@ -64,7 +64,13 @@ def signal_handler(signal, frame):
 # Find all png files to optimize
 def find_images() -> Deque[str]:
     if not os.path.exists('/img'):
-        return collections.deque([])
+        log.error('/img must exist')
+        sys.exit(1)
+    if os.path.isfile('/img'):
+        return collections.deque(['/img'])
+    if not os.path.isdir('/img'):
+        log.error('/img must be file or directory')
+        sys.exit(1)
 
     results = []
     for dirName, subdirList, fileList in os.walk('/img'):

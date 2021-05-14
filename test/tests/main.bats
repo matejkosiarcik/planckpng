@@ -13,7 +13,7 @@ function teardown() {
 
 @test 'Optimize single file' {
     cp 'test/1x1.png' "${tmpdir}/"
-    run docker run --volume "${tmpdir}/1x1.png:/img/file.png" matejkosiarcik/millipng:dev --fast
+    run docker run --volume "${tmpdir}/1x1.png:/img" matejkosiarcik/millipng:dev --level fast
     [ "${status}" -eq 0 ]
 
     # verify file is smaller than the original
@@ -21,9 +21,8 @@ function teardown() {
 }
 
 @test 'Dry run single file' {
-    skip
     cp 'test/1x1.png' "${tmpdir}/"
-    run docker run --volume "${tmpdir}/1x1.png:/img/file.png" matejkosiarcik/millipng:dev --fast --dry-run
+    run docker run --volume "${tmpdir}/1x1.png:/img" matejkosiarcik/millipng:dev --level fast --dry-run
     [ "${status}" -eq 0 ]
 
     # verify the contents of the file did not change
@@ -33,7 +32,7 @@ function teardown() {
 
 @test 'Optimize multiple files' {
     cp 'test/1x1.png' 'test/2x2.png' "${tmpdir}/"
-    run docker run --volume "${tmpdir}:/img" matejkosiarcik/millipng:dev --fast
+    run docker run --volume "${tmpdir}:/img" matejkosiarcik/millipng:dev --level fast
     [ "${status}" -eq 0 ]
 
     # verify files are smaller than the originals
