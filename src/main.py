@@ -140,7 +140,7 @@ def progress_worker():
             if work_index == first_working_index:
                 while (
                     len(work_queue) > first_working_index
-                    and work_queue[first_working_index][1] == False
+                    and not work_queue[first_working_index][1]
                 ):
                     item = re.sub(r"^/img/", "", work_queue[first_working_index][0])
                     offset_from_last = len(work_queue) - first_working_index
