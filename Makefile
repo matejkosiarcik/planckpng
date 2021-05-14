@@ -15,7 +15,7 @@ all: build
 
 .PHONY: bootstrap
 bootstrap:
-	npm --prefix test install
+	npm --prefix test ci
 
 .PHONY: build
 build:

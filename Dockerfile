@@ -3,6 +3,11 @@ FROM scottyhardy/docker-wine:stable-5.0.3
 WORKDIR /src
 
 COPY src/main.py src/main.sh src/utils.sh dependencies/package.json dependencies/package-lock.json ./
+COPY tools/truepng-0.6.2.5.exe /usr/bin/truepng.exe
+COPY tools/deflopt-2.07.exe /usr/bin/deflopt.exe
+COPY tools/pngoptimizercl-2.6.2.bin /usr/bin/pngoptimizer
+COPY tools/pngout-20200115.bin /usr/bin/pngout
+COPY tools/defluff-0.3.2.bin /usr/bin/defluff
 
 # hadolint ignore=SC2016,DL4006
 RUN printf '%s\n%s\n%s\n' '#!/bin/sh' 'set -euf' 'python3 /src/main.py $@' >/usr/bin/millipng && \
@@ -16,12 +21,6 @@ RUN printf '%s\n%s\n%s\n' '#!/bin/sh' 'set -euf' 'python3 /src/main.py $@' >/usr
     rm -rf /var/lib/apt/lists/* && \
     npm ci && \
     npm prune --production
-
-COPY tools/truepng-0.6.2.5.exe /usr/bin/truepng.exe
-COPY tools/deflopt-2.07.exe /usr/bin/deflopt.exe
-COPY tools/pngoptimizercl-2.6.2.bin /usr/bin/pngoptimizer
-COPY tools/pngout-20200115.bin /usr/bin/pngout
-COPY tools/defluff-0.3.2.bin /usr/bin/defluff
 
 ENTRYPOINT [ "millipng" ]
 CMD []

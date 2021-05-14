@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "",
+  "name": "example",
   "scripts": {
     "postinstall": "node-prune"
   },
