@@ -14,62 +14,66 @@
 
 <!-- tocstop -->
 
-## What
+## Overview
 
 **millipng** is a `.png` meta-optimizer.
 
 A meta-optimizer?
-`millipng` is not an optimizer by itself, it just calls multiple existing optimizers: \[`deflopt`, `defluff`, `pngoptimizer`, `pngout`, `truepng`, `zopflipng`\] in a specific order (below).
-`millipng` is a lossless optimizer (beside exif and alpha channel).
+`millipng` is not an optimizer by itself, it just calls multiple existing
+optimizers: \[`deflopt`, `defluff`, `pngoptimizer`, `pngout`, `truepng`,
+`zopflipng`\] in a specific order.
+`millipng` is a lossless png optimizer (except removing exif and alpha channel
+color info).
 
-Order of execution of these tools is based on an analysis here: <https://www.reddit.com/r/webdev/wiki/optimization#wiki_png_compression_instructions>.
+Order of execution of bundled optimizers is based on the analysis here:
+<https://www.reddit.com/r/webdev/wiki/optimization#wiki_png_compression_instructions>.
 
 `millipng` is distributed as a docker image.
-This ensures consistent runtime environment with no configuration on your side (few of the tools used are only available as windows executables (`.exe`) and so require eg. wine under macOS/Linux, which is conveniently already setup in the image).
+This ensures consistent runtime environment with no configuration on your side
+(few of the included optimizers require wine to run on non Windows OS, which is
+already setup in the image).
 
 ## Usage
 
-Let's say you want to optimize `image.png` (in current working directory), run:
-
 ```sh
-docker run -v "$PWD/image.png:/file.png" matejkosiarcik/millipng --brute
-```
+# optimize all pngs in current directory (recursively)
+docker run -v "$PWD:/img" matejkosiarcik/millipng
 
-`millipng` optimizes the image in-place.
-I recommend `--brute` option for maximum optimizations.
-Be ware though, this takes a long time.
-For quicker optimizations see all the options below.
+# optimize single png
+docker run -v "$PWD/image.png:/img" matejkosiarcik/millipng
+```
 
 ### Help
 
 ```sh
 $ docker run matejkosiarcik/millipng --help
-Usage: matejkosiarcik/millipng [--fast|--default|--brute]
-Modes:
- --fast    Fastest, least efficient optimizations
- --default Default optimizations
- --brute   Slowest, most efficient optimizations
+usage: millipng [-h] [-V] [-l {fast,default,brute,ultra-brute}] [-n] [-j JOBS]
+                [-v | -q]
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -V, --version         show program's version number and exit
+  -l {fast,default,brute,ultra-brute}, --level {fast,default,brute,ultra-brute}
+                        Optimization level
+  -n, --dry-run         Do not actually modify images
+  -j JOBS, --jobs JOBS  Number of parallel jobs/threads to run (default is 0 -
+                        automatically determine according to current cpu)
+  -v, --verbose         Additional logging output
+  -q, --quiet           Suppress default logging output
 ```
 
 ### Recommendation
 
-To achieve even better optimizion, I recommend calling `pngquant` (or your favorite quantizer instead) before `millipng`.
-Beware `pngquant` is lossy.
+For maximum results, I recommend
+
+1. call _pngquant_ before _millipng_ (beware _pngquant_ is lossy)
+2. use `--level ultra-rute` in _millipng_
+
 Example:
 
 ```sh
 pngquant --strip --speed 1 --skip-if-larger --quality 0-95 --force 'image.png' --output 'image.png'
-docker run -v "$PWD/image.png:/file.png" matejkosiarcik/millipng --brute
-```
-
-### Batch processing
-
-`millipng` currently only accepts 1 file as an input/output.
-You can process multiple images using find/xargs.
-Example:
-
-```sh
-find . -name '*.png' -print0 | xargs -0 -n1 sh -c 'docker run -v "$PWD}/${1:/file.png" matejkosiarcik/millipng' --
+docker run -v "$PWD/image.png:/img" matejkosiarcik/millipng --level ultra-brute
 ```
 
 ## License
