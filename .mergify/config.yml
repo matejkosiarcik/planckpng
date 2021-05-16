@@ -16,24 +16,3 @@ pull_request_rules:
         method: merge
         strict: smart
         strict_method: rebase
-
-  - name: Automatic merge for dependabot
-    conditions:
-      - author=dependabot[bot]
-      - base=master
-      - assignee=matejkosiarcik
-    actions:
-      merge:
-        method: rebase
-        strict: true
-
-  - name: Automatic merge for defaults update
-    conditions:
-      - author=github-actions[bot]
-      - title=Update defaults
-      - base=master
-      - assignee=matejkosiarcik
-    actions:
-      merge:
-        method: rebase
-        strict: true
