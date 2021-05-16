@@ -1,20 +1,20 @@
 #!/usr/bin/env python
 
 from __future__ import absolute_import, division, print_function, unicode_literals
+
 import argparse
-import sys
-import threading
-import time
-import subprocess
+import collections
+import enum
+import logging
 import multiprocessing
 import os
 import re
-import collections
-import logging
-import enum
 import signal
-from typing import List, Deque, Optional
-
+import subprocess
+import sys
+import threading
+import time
+from typing import Deque, List, Optional
 
 # default logging config
 log = logging.Logger("default", logging.INFO)
