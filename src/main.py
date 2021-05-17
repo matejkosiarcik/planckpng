@@ -37,7 +37,7 @@ class OptimizationLevel(enum.Enum):
     ULTRA_BRUTE = "ultra-brute"
 
     def __str__(self):
-        return self.value
+        return str(self.value)
 
 
 class Termcode(enum.Enum):
@@ -71,14 +71,14 @@ def find_images() -> Deque[str]:
         sys.exit(1)
 
     results = []
-    for dirName, subdirList, fileList in os.walk("/img"):
+    for dir_name, _, file_list in os.walk("/img"):
         results += [
-            os.path.join(dirName, x) for x in fileList if re.match(r"^.+\.png$", x)
+            os.path.join(dir_name, x) for x in file_list if re.match(r"^.+\.png$", x)
         ]
     results = [x for x in results if os.path.isfile(x)]
     results = sorted(results)
 
-    log.debug("Found images: \n" + "\n".join(f"- {x}" for x in results))
+    log.debug("Found images: %s\n", "\n".join(f"- {x}" for x in results))
 
     return collections.deque(results)
 
@@ -250,12 +250,12 @@ def main(argv: Optional[List[str]]):
 
     thread_count = args.jobs
     if thread_count < 0:
-        log.error(f"Thread count can't be negative, got {thread_count}")
+        log.error("Thread count can't be negative, got %s", thread_count)
         sys.exit(1)
     elif thread_count == 0:
         # get it dynamically by cpu core count
         thread_count = multiprocessing.cpu_count()
-    log.debug(f"Using {thread_count} threads")
+    log.debug("Using %s threads", thread_count)
 
     # start this deamon
     progress_work = threading.Thread(target=progress_worker, daemon=True)
