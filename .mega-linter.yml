@@ -1,14 +1,18 @@
 DISABLE:
-  - COPYPASTE # too many false-positives for the time being
-  - EDITORCONFIG # instead usable from super-linter
+  - COPYPASTE # too many false-positives
+  - CSS
   - JAVASCRIPT
   - TYPESCRIPT
-  - CSS
 
 DISABLE_LINTERS:
   - SPELL_CSPELL
+  - RUST_CLIPPY
 
 # Override default config files
-YAML_YAMLLINT_CONFIG_FILE: .yamllint.yml
-RUBY_RUBOCOP_CONFIG_FILE: .rubocop.yml
 DOCKERFILE_HADOLINT_CONFIG_FILE: .hadolint.yaml
+PYTHON_BLACK_CONFIG_FILE: pyproject.toml
+PYTHON_FLAKE8_CONFIG_FILE: setup.cfg
+PYTHON_ISORT_CONFIG_FILE: pyproject.toml
+PYTHON_PYLINT_CONFIG_FILE: pyproject.toml
+RUBY_RUBOCOP_CONFIG_FILE: .rubocop.yml
+YAML_YAMLLINT_CONFIG_FILE: .yamllint.yml

@@ -38,7 +38,7 @@ indent_style = tab
 ### Documentation and Configuration # ###
 
 # Most documentation formats prefer 2 spaces per indent level
-[{*.{yml,yaml},*.{xml,html,svg,xlf,sdef},*.{md,mdown,markdown},*.{css,scss,sass,less}}]
+[{*.{yml,yaml},*.toml,*.{xml,html,svg,xlf,sdef},*.{md,mdown,markdown},*.{css,scss,sass,less}}]
 indent_size = 2
 
 # Multiline comments

@@ -5,6 +5,3 @@ linters:
     fixer: true
   yamllint:
     config: .yamllint.yml
-
-fixers:
-  enable: true

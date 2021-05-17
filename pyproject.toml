@@ -1,0 +1,14 @@
+[tool.isort]
+profile = "black"
+
+[tool.pylint.messages_control]
+max-line-length = 150
+disable = [
+  "fixme",
+  "wildcard-import",
+  "unused-wildcard-import",
+  "missing-class-docstring",
+  "missing-function-docstring",
+  "missing-module-docstring",
+  "no-else-return"
+]
