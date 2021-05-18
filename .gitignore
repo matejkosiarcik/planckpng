@@ -1,9 +1,17 @@
-node_modules
-.DS_Store
+# OS stuff
 ._*
-Thumbs.db
+.DS_Store
 [Dd]esktop.ini
 *~
+Thumbs.db
+
+# editors
+.idea/
+.vscode/
+*.sublime-*
+*.vim
+Package Control.*
+
+# dependencies
+node_modules/
 venv/
-.bundle/
-gitman/
