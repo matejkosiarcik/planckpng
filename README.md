@@ -5,11 +5,10 @@
 
 <!-- toc -->
 
-- [What](#what)
+- [Overview](#overview)
 - [Usage](#usage)
   - [Help](#help)
   - [Recommendation](#recommendation)
-  - [Batch processing](#batch-processing)
 - [License](#license)
 
 <!-- tocstop -->
