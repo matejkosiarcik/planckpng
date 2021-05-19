@@ -2,9 +2,9 @@
 set -euf
 
 cd "$(dirname "$0")"
-# shellcheck ignore=SC1091
+# shellcheck disable=SC1091
 . ./gitman/demo-magic/demo-magic.sh
-# shellcheck ignore=SC2034
+# shellcheck disable=SC2034
 TYPE_SPEED=8
 
 # TODO: add more images for recording
@@ -14,6 +14,6 @@ cp -R test/ "$workdir/"
 cd "$workdir"
 
 clear
-# shellcheck ignore=SC2016
+# shellcheck disable=SC2016
 pei 'docker run -itv "$PWD:/img" matejkosiarcik/millipng:dev --level fast'
 pei '' # basically prompt another line that keeps the results in view a bit longer

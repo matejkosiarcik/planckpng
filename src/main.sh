@@ -9,7 +9,9 @@ fi
 image_path="$1"
 mode="$2"
 PATH="$PATH:/src/node_modules/.bin"
-. ./utils.sh
+
+# shellcheck source=src/utils.sh
+. "$(dirname "$0")/utils.sh"
 
 if [ ! -e "$image_path" ]; then
     printf 'File %s does not exist' "$image_path" >&2

@@ -31,11 +31,11 @@ class OptimizationLevel(enum.Enum):
 
 
 class Termcode(enum.Enum):
-    reset = "\33[0m"
-    green = "\33[32m"
-    up_nlines = "\33[0A"
-    down_nlines = "\33[0B"
-    erase_line = "\33[2K"
+    RESET = "\33[0m"
+    GREEN = "\33[32m"
+    UP_NLINES = "\33[0A"
+    DOWN_NLINES = "\33[0B"
+    ERASE_LINE = "\33[2K"
 
     def __str__(self):
         if sys.stdout.isatty():
@@ -45,8 +45,8 @@ class Termcode(enum.Enum):
 
 
 # gracefully exit on SIGINT
-def signal_handler(signal):
-    log.debug('Signal: %s', signal)
+def signal_handler(signal_name):
+    log.debug("Signal: %s", signal_name)
     sys.exit(0)
 
 
@@ -82,7 +82,7 @@ class Worker:
 
     # shared state
     input_lock = threading.Lock()
-    input_paths: Deque[str] # = collections.deque()
+    input_paths: Deque[str]  # = collections.deque()
 
     def __init__(self, paths: List[str]) -> None:
         self.input_paths = collections.deque(paths)
@@ -118,10 +118,10 @@ class Worker:
                     continue
                 offset_from_last = len(work_queue) - i
                 item = re.sub(r"^/img/", "", work_queue[i][0])
-                up_command = re.sub(r"0", str(offset_from_last), Termcode.up_nlines.value)
-                down_command = re.sub(r"0", str(offset_from_last), Termcode.down_nlines.value)
+                up_command = re.sub(r"0", str(offset_from_last), Termcode.UP_NLINES.value)
+                down_command = re.sub(r"0", str(offset_from_last), Termcode.DOWN_NLINES.value)
                 print(f"{up_command}\r", end="")
-                print(f"{Termcode.erase_line}\r{item} {spinner_parts[spinner_index]}", end="")
+                print(f"{Termcode.ERASE_LINE}\r{item} {spinner_parts[spinner_index]}", end="")
                 print(f"{down_command}\r", end="")
 
             # first copy finished items to our temporary queue to not block other threads
@@ -139,11 +139,11 @@ class Worker:
                     while len(work_queue) > first_working_index and not work_queue[first_working_index][1]:
                         item = re.sub(r"^/img/", "", work_queue[first_working_index][0])
                         offset_from_last = len(work_queue) - first_working_index
-                        up_command = re.sub(r"0", str(offset_from_last), Termcode.up_nlines.value)
-                        down_command = re.sub(r"0", str(offset_from_last), Termcode.down_nlines.value)
+                        up_command = re.sub(r"0", str(offset_from_last), Termcode.UP_NLINES.value)
+                        down_command = re.sub(r"0", str(offset_from_last), Termcode.DOWN_NLINES.value)
                         print(f"{up_command}\r", end="")
                         print(
-                            f"{Termcode.erase_line}\r{item} {Termcode.green}✔{Termcode.reset}",
+                            f"{Termcode.ERASE_LINE}\r{item} {Termcode.GREEN}✔{Termcode.RESET}",
                             end="",
                         )
                         print(f"{down_command}\r", end="")
@@ -151,11 +151,11 @@ class Worker:
                 else:
                     item = re.sub(r"^/img/", "", work_queue[work_index][0])
                     offset_from_last = len(work_queue) - work_index
-                    up_command = re.sub(r"0", str(offset_from_last), Termcode.up_nlines.value)
-                    down_command = re.sub(r"0", str(offset_from_last), Termcode.down_nlines.value)
+                    up_command = re.sub(r"0", str(offset_from_last), Termcode.UP_NLINES.value)
+                    down_command = re.sub(r"0", str(offset_from_last), Termcode.DOWN_NLINES.value)
                     print(f"{up_command}\r", end="")
                     print(
-                        f"{Termcode.erase_line}\r{item} {Termcode.green}✔{Termcode.reset}",
+                        f"{Termcode.ERASE_LINE}\r{item} {Termcode.GREEN}✔{Termcode.RESET}",
                         end="",
                     )
                     print(f"{down_command}\r", end="")
@@ -163,7 +163,6 @@ class Worker:
             spinner_index = (spinner_index + 1) % len(spinner_parts)
             if self.kill_progress:
                 break
-
 
     def image_worker(self, dry_run: bool, level: OptimizationLevel):
         while True:

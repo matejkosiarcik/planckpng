@@ -14,7 +14,7 @@ run_truepng() {
     mode="$2"
     workdir="$(mktemp -d)"
     cp "$image" "$workdir/input.png"
-    cd "$workdir"
+    cd "$workdir" || return 1
 
     # run
     # printf 'TruePNG...'
@@ -32,7 +32,7 @@ run_truepng() {
     # statistics 'input.png' 'output.png'
 
     # cleanup
-    cd - >/dev/null
+    cd - >/dev/null || return 1
     cp "$workdir/output.png" "$image"
     rm -rf "$workdir"
 }
@@ -43,7 +43,7 @@ run_pngoptimizer() {
     mode="$2"
     workdir="$(mktemp -d)"
     cp "$image" "$workdir/input.png"
-    cd "$workdir"
+    cd "$workdir" || return 1
 
     # run
     # printf 'PNG Optimizer...'
@@ -52,7 +52,7 @@ run_pngoptimizer() {
     # statistics 'input.png' 'output.png'
 
     # cleanup
-    cd - >/dev/null
+    cd - >/dev/null || return 1
     cp "$workdir/output.png" "$image"
     rm -rf "$workdir"
 }
@@ -63,7 +63,7 @@ run_optipng() {
     mode="$2"
     workdir="$(mktemp -d)"
     cp "$image" "$workdir/input.png"
-    cd "$workdir"
+    cd "$workdir" || return 1
 
     # run
     # printf 'OptiPNG...'
@@ -81,7 +81,7 @@ run_optipng() {
     # statistics 'input.png' 'output.png'
 
     # cleanup
-    cd - >/dev/null
+    cd - >/dev/null || return 1
     cp "$workdir/output.png" "$image"
     rm -rf "$workdir"
 }
@@ -92,7 +92,7 @@ run_zopflipng() {
     mode="$2"
     workdir="$(mktemp -d)"
     cp "$image" "$workdir/input.png"
-    cd "$workdir"
+    cd "$workdir" || return 1
 
     # run
     # printf 'ZopfliPNG...'
@@ -110,7 +110,7 @@ run_zopflipng() {
     # statistics 'input.png' 'output.png'
 
     # cleanup
-    cd - >/dev/null
+    cd - >/dev/null || return 1
     cp "$workdir/output.png" "$image"
     rm -rf "$workdir"
 }
@@ -121,7 +121,7 @@ run_pngout() {
     mode="$2"
     workdir="$(mktemp -d)"
     cp "$image" "$workdir/input.png"
-    cd "$workdir"
+    cd "$workdir" || return 1
 
     # run
     # printf 'PNGOut...'
@@ -130,7 +130,7 @@ run_pngout() {
     # statistics 'input.png' 'output.png'
 
     # cleanup
-    cd - >/dev/null
+    cd - >/dev/null || return 1
     cp "$workdir/output.png" "$image"
     rm -rf "$workdir"
 }
@@ -141,7 +141,7 @@ run_deflopt() {
     mode="$2"
     workdir="$(mktemp -d)"
     cp "$image" "$workdir/input.png"
-    cd "$workdir"
+    cd "$workdir" || return 1
     cp 'input.png' 'output.png'
 
     # run
@@ -151,7 +151,7 @@ run_deflopt() {
     # statistics 'input.png' 'output.png'
 
     # cleanup
-    cd - >/dev/null
+    cd - >/dev/null || return 1
     cp "$workdir/output.png" "$image"
     rm -rf "$workdir"
 }
