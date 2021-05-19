@@ -1,6 +1,9 @@
 [tool.isort]
 profile = "black"
 
+[tool.black]
+line-length=150
+
 [tool.pylint.messages_control]
 max-line-length = 150
 disable = [

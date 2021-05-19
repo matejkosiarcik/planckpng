@@ -55,7 +55,8 @@ class Termcode(enum.Enum):
 
 
 # gracefully exit on SIGINT
-def signal_handler(signal, frame):
+def signal_handler(signal):
+    log.debug('Signal: %s', signal)
     sys.exit(0)
 
 
@@ -72,9 +73,7 @@ def find_images() -> Deque[str]:
 
     results = []
     for dir_name, _, file_list in os.walk("/img"):
-        results += [
-            os.path.join(dir_name, x) for x in file_list if re.match(r"^.+\.png$", x)
-        ]
+        results += [os.path.join(dir_name, x) for x in file_list if re.match(r"^.+\.png$", x)]
     results = [x for x in results if os.path.isfile(x)]
     results = sorted(results)
 
@@ -85,7 +84,7 @@ def find_images() -> Deque[str]:
 
 # This is a dedicated thread for displaying progress
 def progress_worker():
-    global input_lock, input_paths, started_lock, started_queue, finished_lock, finished_queue
+    global started_lock, started_queue, finished_lock, finished_queue
 
     spinner_parts = ["⌞", "⌟", "⌝", "⌜"]
     spinner_index = 0
@@ -117,13 +116,9 @@ def progress_worker():
             offset_from_last = len(work_queue) - i
             item = re.sub(r"^/img/", "", work_queue[i][0])
             up_command = re.sub(r"0", str(offset_from_last), Termcode.up_nlines.value)
-            down_command = re.sub(
-                r"0", str(offset_from_last), Termcode.down_nlines.value
-            )
+            down_command = re.sub(r"0", str(offset_from_last), Termcode.down_nlines.value)
             print(f"{up_command}\r", end="")
-            print(
-                f"{Termcode.erase_line}\r{item} {spinner_parts[spinner_index]}", end=""
-            )
+            print(f"{Termcode.erase_line}\r{item} {spinner_parts[spinner_index]}", end="")
             print(f"{down_command}\r", end="")
 
         # first copy finished items to our temporary queue to not block other threads
@@ -138,18 +133,11 @@ def progress_worker():
             work_index = work_indices[item]
             work_queue[work_index] = (item, False)
             if work_index == first_working_index:
-                while (
-                    len(work_queue) > first_working_index
-                    and not work_queue[first_working_index][1]
-                ):
+                while len(work_queue) > first_working_index and not work_queue[first_working_index][1]:
                     item = re.sub(r"^/img/", "", work_queue[first_working_index][0])
                     offset_from_last = len(work_queue) - first_working_index
-                    up_command = re.sub(
-                        r"0", str(offset_from_last), Termcode.up_nlines.value
-                    )
-                    down_command = re.sub(
-                        r"0", str(offset_from_last), Termcode.down_nlines.value
-                    )
+                    up_command = re.sub(r"0", str(offset_from_last), Termcode.up_nlines.value)
+                    down_command = re.sub(r"0", str(offset_from_last), Termcode.down_nlines.value)
                     print(f"{up_command}\r", end="")
                     print(
                         f"{Termcode.erase_line}\r{item} {Termcode.green}✔{Termcode.reset}",
@@ -160,12 +148,8 @@ def progress_worker():
             else:
                 item = re.sub(r"^/img/", "", work_queue[work_index][0])
                 offset_from_last = len(work_queue) - work_index
-                up_command = re.sub(
-                    r"0", str(offset_from_last), Termcode.up_nlines.value
-                )
-                down_command = re.sub(
-                    r"0", str(offset_from_last), Termcode.down_nlines.value
-                )
+                up_command = re.sub(r"0", str(offset_from_last), Termcode.up_nlines.value)
+                down_command = re.sub(r"0", str(offset_from_last), Termcode.down_nlines.value)
                 print(f"{up_command}\r", end="")
                 print(
                     f"{Termcode.erase_line}\r{item} {Termcode.green}✔{Termcode.reset}",
@@ -199,7 +183,7 @@ def image_worker(dry_run: bool, level: OptimizationLevel):
 
 
 def main(argv: Optional[List[str]]):
-    global input_paths, log, kill_progress
+    global input_paths, kill_progress
 
     signal.signal(signal.SIGINT, signal_handler)
     log.addHandler(logging.StreamHandler(sys.stderr))
@@ -218,9 +202,7 @@ def main(argv: Optional[List[str]]):
         default="default",
         help="Optimization level",
     )
-    parser.add_argument(
-        "-n", "--dry-run", action="store_true", help="Do not actually modify images"
-    )
+    parser.add_argument("-n", "--dry-run", action="store_true", help="Do not actually modify images")
     parser.add_argument(
         "-j",
         "--jobs",
@@ -228,15 +210,9 @@ def main(argv: Optional[List[str]]):
         default=0,
         help="Number of parallel jobs/threads to run (default is 0 - automatically determine according to current cpu)",
     )
-    command_group = (
-        parser.add_mutually_exclusive_group()
-    )  # disallow using verbose & quiet together
-    command_group.add_argument(
-        "-v", "--verbose", action="store_true", help="Additional logging output"
-    )
-    command_group.add_argument(
-        "-q", "--quiet", action="store_true", help="Suppress default logging output"
-    )
+    command_group = parser.add_mutually_exclusive_group()  # disallow using verbose & quiet together
+    command_group.add_argument("-v", "--verbose", action="store_true", help="Additional logging output")
+    command_group.add_argument("-q", "--quiet", action="store_true", help="Suppress default logging output")
     args = parser.parse_args(argv)
 
     log.setLevel(logging.INFO)
@@ -261,12 +237,7 @@ def main(argv: Optional[List[str]]):
     progress_work = threading.Thread(target=progress_worker, daemon=True)
 
     # start threads and wait for finish
-    threads = [
-        threading.Thread(
-            target=image_worker, daemon=True, args=[args.dry_run, args.level]
-        )
-        for _ in range(thread_count)
-    ]
+    threads = [threading.Thread(target=image_worker, daemon=True, args=[args.dry_run, args.level]) for _ in range(thread_count)]
     for thread in threads:
         thread.start()
     progress_work.start()
