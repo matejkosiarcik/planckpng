@@ -36,5 +36,5 @@ bootstrap:
 .PHONY: record
 record:
 	if $(ACTIVATE_VENV); then \
-		PATH="$$PATH:$(PROJECT_DIR)/node_modules/.bin" sh record.sh \
+		PATH="$$PATH:$(PROJECT_DIR)/node_modules/.bin" sh main.sh \
 	;else exit 1; fi

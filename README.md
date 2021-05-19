@@ -18,21 +18,27 @@
 **millipng** is a `.png` meta-optimizer.
 
 A meta-optimizer?
-`millipng` is not an optimizer by itself, it just calls multiple existing
-optimizers: \[`deflopt`, `defluff`, `pngoptimizer`, `pngout`, `truepng`,
-`zopflipng`\] in a specific order.
-`millipng` is a lossless png optimizer (except removing exif and alpha channel
+_millipng_ is not an optimizer by itself, it just calls multiple existing
+optimizers (_deflopt_, _defluff_, _optipng_, _pngoptimizer_, _pngout_,
+_truepng_, _zopflipng_) in a specific order described by (not mine) analysis
+here:
+[reddit.com/r/webdev/wiki](https://www.reddit.com/r/webdev/wiki/optimization#wiki_png_compression_instructions).
+
+_millipng_ is a lossless png optimizer (except removing exif and alpha channel
 color info).
 
-Order of execution of bundled optimizers is based on the analysis here:
-<https://www.reddit.com/r/webdev/wiki/optimization#wiki_png_compression_instructions>.
-
-`millipng` is distributed as a docker image.
+_millipng_ is distributed as a docker image.
 This ensures consistent runtime environment with no configuration on your side
 (few of the included optimizers require wine to run on non Windows OS, which is
 already setup in the image).
 
+Why is it so slow?
+Well I really care about squeezing every little byte out of my pngs.
+So the bundled tools tools are called with crazy options (mainly brute+ levels).
+
 ## Usage
+
+![millipng demo](./doc/demo.gif)
 
 ```sh
 # optimize all pngs in current directory (recursively)
@@ -42,7 +48,7 @@ docker run -v "$PWD:/img" matejkosiarcik/millipng
 docker run -v "$PWD/image.png:/img" matejkosiarcik/millipng
 ```
 
-### Help
+When in doubt, get help:
 
 ```sh
 $ docker run matejkosiarcik/millipng --help

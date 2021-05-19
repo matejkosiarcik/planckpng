@@ -47,7 +47,7 @@ updates:
     labels:
       - automerge
 
-  # Misc
+  # Doc
   - package-ecosystem: npm
     directory: "/doc/record"
     versioning-strategy: increase

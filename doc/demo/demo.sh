@@ -5,7 +5,7 @@ cd "$(dirname "$0")"
 # shellcheck ignore=SC1091
 . ./gitman/demo-magic/demo-magic.sh
 # shellcheck ignore=SC2034
-TYPE_SPEED=6
+TYPE_SPEED=8
 
 # TODO: add more images for recording
 cd ../.. # cd to project root
