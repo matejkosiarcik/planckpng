@@ -7,7 +7,6 @@
 
 - [Overview](#overview)
 - [Usage](#usage)
-  - [Help](#help)
   - [Recommendation](#recommendation)
 - [License](#license)
 
