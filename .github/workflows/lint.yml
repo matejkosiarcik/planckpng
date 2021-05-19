@@ -1,0 +1,61 @@
+name: Lint
+
+on:
+  push:
+  pull_request:
+    branches: [master, main]
+
+jobs:
+  github-super-linter:
+    name: GitHub Super Linter
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v2.3.4
+        with:
+          fetch-depth: 0 # Full git history is needed to get a proper list of changed files
+
+      - name: GitHub Super Linter
+        uses: github/super-linter@v3.15.5
+        env:
+          # global settings
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VALIDATE_ALL_CODEBASE: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
+          DEFAULT_BRANCH: master
+          LINTER_RULES_PATH: /
+
+          # disable
+          VALIDATE_CSS: false
+          VALIDATE_JAVASCRIPT_ES: false
+          VALIDATE_JAVASCRIPT_STANDARD: false
+          VALIDATE_JSCPD: false # TODO: reenable JSCPD
+          VALIDATE_TYPESCRIPT_ES: false
+          VALIDATE_TYPESCRIPT_STANDARD: false
+
+          # config files
+          DOCKERFILE_HADOLINT_FILE_NAME: .hadolint.yaml
+          MARKDOWN_CONFIG_FILE: .markdownlint.json
+          PYTHON_BLACK_CONFIG_FILE: pyproject.toml
+          PYTHON_FLAKE8_CONFIG_FILE: setup.cfg
+          PYTHON_ISORT_CONFIG_FILE: pyproject.toml
+          PYTHON_PYLINT_CONFIG_FILE: pyproject.toml
+          RUBY_CONFIG_FILE: .rubocop.yml
+          YAML_CONFIG_FILE: .yamllint.yml
+
+  mega-linter:
+    name: Mega-Linter
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v2.3.4
+        with:
+          fetch-depth: 0 # Full git history is needed to get a proper list of changed files
+
+      - name: Mega Linter
+        uses: nvuillam/mega-linter@v4.31.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VALIDATE_ALL_CODEBASE: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
+          DEFAULT_BRANCH: master
+          LINTER_RULES_PATH: /
+          # Rest of the config is in /.mega-linter.yml

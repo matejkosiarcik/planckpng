@@ -1,0 +1,9 @@
+{
+  "private": true,
+  "scripts": {
+    "test": "./node_modules/bats/bin/bats --recursive tests"
+  },
+  "dependencies": {
+    "bats": "^1.3.0"
+  }
+}

@@ -3,7 +3,7 @@
 MAKEFLAGS += --warn-undefined-variables
 PROJECT_DIR := $(dir $(abspath $(MAKEFILE_LIST)))
 AZLINT_VERSION ?= dev
-DESTDIR ?= $${HOME}/bin
+DESTDIR ?= $$HOME/bin
 SHELL := /bin/sh
 .SHELLFLAGS := -ec
 
@@ -15,12 +15,12 @@ all: build
 
 .PHONY: bootstrap
 bootstrap:
-	cd docker && $(MAKE) bootstrap
+	npm --prefix test ci
 
 .PHONY: build
 build:
-	cd docker && $(MAKE) build
+	docker build . --tag matejkosiarcik/millipng:dev
 
 .PHONY: test
 test:
-	cd docker && $(MAKE) test
+	npm --prefix test test

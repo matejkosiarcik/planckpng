@@ -1,0 +1,7 @@
+{
+  "private": true,
+  "name": "example",
+  "devDependencies": {
+    "asciicast2gif": "^0.2.1"
+  }
+}

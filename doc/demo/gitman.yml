@@ -1,0 +1,28 @@
+location: gitman/
+sources:
+  - repo: git@github.com:paxtonhare/demo-magic.git
+    name: demo-magic
+    rev: master
+    type: git
+    sparse_paths:
+      -
+    link:
+    links:
+      -
+    scripts:
+      -
+sources_locked:
+  - repo: git@github.com:paxtonhare/demo-magic.git
+    name: demo-magic
+    rev: 10abf5390b6d5461155dc58012081490598f7bad
+    type: git
+    sparse_paths:
+      -
+    link:
+    links:
+      -
+    scripts:
+      -
+default_group: ""
+groups:
+  -

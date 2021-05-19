@@ -1,0 +1,2 @@
+asciinema==2.0.2
+gitman==2.3.2

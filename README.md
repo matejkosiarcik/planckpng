@@ -5,73 +5,82 @@
 
 <!-- toc -->
 
-- [What](#what)
+- [Overview](#overview)
 - [Usage](#usage)
-  - [Help](#help)
   - [Recommendation](#recommendation)
-  - [Batch processing](#batch-processing)
 - [License](#license)
 
 <!-- tocstop -->
 
-## What
+## Overview
 
-`millipng` is png image meta-optimizer based in docker, inspired by these
-instructions
-<https://www.reddit.com/r/webdev/wiki/optimization#wiki_png_compression_instructions>.
+**millipng** is a `.png` meta-optimizer.
 
-A meta-optimizer? `millipng` is not an optimizer by itself,
-it just calls multiple existing optimizers like
-`zopflipng`, `optipng`, `truepng`, `deflopt`, `pngout` ...
-Need I go on?
+A meta-optimizer?
+_millipng_ is not an optimizer by itself, it just calls multiple existing
+optimizers (_deflopt_, _defluff_, _optipng_, _pngoptimizer_, _pngout_,
+_truepng_, _zopflipng_) in a specific order described by (not mine) analysis
+here:
+[reddit.com/r/webdev/wiki](https://www.reddit.com/r/webdev/wiki/optimization#wiki_png_compression_instructions).
 
-Why docker?
-It provides consistent runtime for all other operating systems.
-Some tools require windows/wine, so you don't need to bother with it as well as other dependencies.
+_millipng_ is a lossless png optimizer (except removing exif and alpha channel
+color info).
+
+_millipng_ is distributed as a docker image.
+This ensures consistent runtime environment with no configuration on your side
+(few of the included optimizers require wine to run on non Windows OS, which is
+already setup in the image).
+
+Why is it so slow?
+Well I really care about squeezing every little byte out of my pngs.
+So the bundled tools tools are called with crazy options (mainly brute+ levels).
 
 ## Usage
 
-Let's say you want to optimize `image.png` (in current folder), run:
+![millipng demo](./doc/demo.gif)
 
 ```sh
-docker run -v "${PWD}/image.png:/file.png" matejkosiarcik/millipng
+# optimize all pngs in current directory (recursively)
+docker run -v "$PWD:/img" matejkosiarcik/millipng
+
+# optimize single png
+docker run -v "$PWD/image.png:/img" matejkosiarcik/millipng
 ```
 
-`millipng` optimizes the image in-place.
-
-### Help
+When in doubt, get help:
 
 ```sh
 $ docker run matejkosiarcik/millipng --help
-Usage: matejkosiarcik/millipng [--fast|--default|--brute]
-Modes:
- --fast    Fastest, least efficient optimizations
- --default Default optimizations
- --brute   Slowest, most efficient optimizations
+usage: millipng [-h] [-V] [-l {fast,default,brute,ultra-brute}] [-n] [-j JOBS]
+                [-v | -q]
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -V, --version         show program's version number and exit
+  -l {fast,default,brute,ultra-brute}, --level {fast,default,brute,ultra-brute}
+                        Optimization level
+  -n, --dry-run         Do not actually modify images
+  -j JOBS, --jobs JOBS  Number of parallel jobs/threads to run (default is 0 -
+                        automatically determine according to current cpu)
+  -v, --verbose         Additional logging output
+  -q, --quiet           Suppress default logging output
 ```
 
 ### Recommendation
 
-To further optimize images, I recommend calling `pngquant` before `millipng`.
-Beware `pngquant` is lossy.
+For maximum results, I recommend
+
+1. call _pngquant_ before _millipng_ (beware _pngquant_ is lossy)
+2. use `--level ultra-rute` in _millipng_
+
+Example:
 
 ```sh
 pngquant --strip --speed 1 --skip-if-larger --quality 0-95 --force 'image.png' --output 'image.png'
-# call millipng here
-```
-
-### Batch processing
-
-You can process multiple images with find/xargs:
-
-```sh
-find . -name '*.png' -print0 | xargs -0 -n1 sh -c 'docker run -v "${PWD}/${1}:/file.png" matejkosiarcik/millipng' --
+docker run -v "$PWD/image.png:/img" matejkosiarcik/millipng --level ultra-brute
 ```
 
 ## License
 
 The project is licensed under LGPLv3.
 See [LICENSE.txt](./LICENSE.txt) for full details.
-
-TL;DR: you can use the project in your open/closed source apps, but if you make
-modifications to it, you should make them (as in modifications, not apps) open.

@@ -14,7 +14,7 @@ trim_trailing_whitespace = true
 
 # Ignore binaries
 # TODO: maybe this is not necessary, check if eclint ignores binaries by default
-[{*.{so,pdb,dylib,dll,cache,a},*.{zip,7z,gz,xz},*.{jpg,jpeg,png,gif},*.{exe,bin}}]
+[*.{so,pdb,dylib,dll,cache,a,zip,7z,gz,xz,jpg,jpeg,png,gif,bmp,webp,webm,mp4,avi,mkv,exe,bin}]
 charset = unset
 end_of_line = unset
 indent_size = unset
@@ -27,7 +27,7 @@ trim_trailing_whitespace = unset
 insert_final_newline = false
 
 # Makefiles must be indented using tabs
-[{*{,GNU,BSD}{makefile,Makefile},*.make,*{,Root}Makeppfile}]
+[*{,GNU,BSD}{makefile,Makefile,.make}]
 indent_style = tab
 
 # Trailing whitespace is generally permitted in markdown
@@ -35,9 +35,16 @@ indent_style = tab
 # [*.md]
 # trim_trailing_whitespace = false
 
+### Documentation and Configuration # ###
+
 # Most documentation formats prefer 2 spaces per indent level
-[{*.{yml,yaml},*.{xml,html,svg,xlf,sdef},*.{md,mdown,markdown},*.{css,scss,sass,less}}]
+[*.{yml,yaml,toml,xml,html,svg,xlf,sdef,md,mdown,markdown,css,scss,sass,less}]
 indent_size = 2
+
+# Multiline comments
+[*.{html,htm}]
+block_comment_end = -->
+block_comment_start = <!--
 
 # C-style languages multiline comments
 [{*.{c,h}{,pp,xx,++},*.{m,cc,hh,mm,C,H,M},*.swift,*.{js,ts}{,x},*.php{,4,5,7},*.{java,scala,sc,kt,ktm,kts},*.{cs,fs}{,x}}]
@@ -57,18 +64,26 @@ indent_size = 2
 
 ### JavaScript ecosystem ###
 
+[*.{js,ts,jsx,tsx}]
+indent_size = 2
+
 # All jsons
-[*.{json,json5,remarkrc,htmllintrc,htmlhintrc,eslintrc,babelrc}]
+[*.{json,json5,remarkrc,htmllintrc,htmlhintrc,eslintrc,babelrc,hintrc,ecrc}]
 indent_size = 2
 
 ### Ruby ecosystem ###
 
 # Indent Gemfile using 2 spaces
-# TODO: check if bug (3 spaces indent at end of Gemfile.lock) is fixed
-[{Rakefile,Gemfile{,.lock}}]
+[{Rakefile,Gemfile}]
 indent_size = 2
 
-### .NET ecosystem ###
+# There is a bug that erronously outputs 3 spaces per indent for last few lines of Gemfile.lock
+# Until it is fixed (and fixed versions available everywhere) ignoring this issue seems to be the only way
+# relevant: https://github.com/rubygems/rubygems/issues/3326
+[Gemfile.lock]
+indent_size = unset
+
+### .NET/Windows ecosystem ###
 
 # Encoding exception for VisualStudio project files
 [*.{cs,csx,vb,vbx,csproj,njsproj,sln}]
@@ -80,3 +95,10 @@ indent_size = 2
 
 [*.sln]
 indent_style = tab
+
+[*.bat]
+end_of_line = crlf
+
+### Java/JVM/Android ecosystem ###
+[gradlew]
+indent_size = 2

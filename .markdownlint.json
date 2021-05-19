@@ -9,9 +9,9 @@
     "siblings_only": true
   },
   "no-inline-html": {
-    "allowed_elements": [
-      "details",
-      "summary"
-    ]
+    "allowed_elements": ["details", "summary"]
+  },
+  "single-h1": {
+    "front_matter_title": ""
   }
 }

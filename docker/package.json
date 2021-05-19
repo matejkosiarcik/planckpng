@@ -1,6 +1,0 @@
-{
-  "private": true,
-  "dependencies": {
-    "zopflipng-bin": "^6.0.1"
-  }
-}
