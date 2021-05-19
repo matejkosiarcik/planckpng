@@ -31,10 +31,6 @@ This ensures consistent runtime environment with no configuration on your side
 (few of the included optimizers require wine to run on non Windows OS, which is
 already setup in the image).
 
-Why is it so slow?
-Well I really care about squeezing every little byte out of my pngs.
-So the bundled tools tools are called with crazy options (mainly brute+ levels).
-
 ## Usage
 
 ![millipng demo](./doc/demo.gif)
@@ -70,8 +66,10 @@ optional arguments:
 
 For maximum results, I recommend
 
-1. call _pngquant_ before _millipng_ (beware _pngquant_ is lossy)
+1. call _pngquant_ before _millipng_
+  - beware _pngquant_ is lossy
 2. use `--level ultra-rute` in _millipng_
+  - beware this takes a **really long time** for any sizible png
 
 Example:
 
