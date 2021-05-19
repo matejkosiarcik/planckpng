@@ -14,7 +14,7 @@ trim_trailing_whitespace = true
 
 # Ignore binaries
 # TODO: maybe this is not necessary, check if eclint ignores binaries by default
-[{*.{so,pdb,dylib,dll,cache,a},*.{zip,7z,gz,xz},*.{jpg,jpeg,png,gif,bmp,webp},*.{webm,mp4,avi,mkv},*.{exe,bin}}]
+[*.{so,pdb,dylib,dll,cache,a,zip,7z,gz,xz,jpg,jpeg,png,gif,bmp,webp,webm,mp4,avi,mkv,exe,bin}]
 charset = unset
 end_of_line = unset
 indent_size = unset
@@ -27,7 +27,7 @@ trim_trailing_whitespace = unset
 insert_final_newline = false
 
 # Makefiles must be indented using tabs
-[{*{,GNU,BSD}{makefile,Makefile},*.make,*{,Root}Makeppfile}]
+[*{,GNU,BSD}{makefile,Makefile,.make}]
 indent_style = tab
 
 # Trailing whitespace is generally permitted in markdown
@@ -38,7 +38,7 @@ indent_style = tab
 ### Documentation and Configuration # ###
 
 # Most documentation formats prefer 2 spaces per indent level
-[{*.{yml,yaml},*.toml,*.{xml,html,svg,xlf,sdef},*.{md,mdown,markdown},*.{css,scss,sass,less}}]
+[*.{yml,yaml,toml,xml,html,svg,xlf,sdef,md,mdown,markdown,css,scss,sass,less}]
 indent_size = 2
 
 # Multiline comments
