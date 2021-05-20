@@ -24,3 +24,7 @@ build:
 .PHONY: test
 test:
 	npm --prefix test test
+
+.PHONY: test-lite
+test-lite:
+	npm --prefix test run test-lite

@@ -45,7 +45,7 @@ class Termcode(enum.Enum):
 
 
 # gracefully exit on SIGINT
-def signal_handler(signal_name):
+def signal_handler(signal_name, _):
     log.debug("Signal: %s", signal_name)
     sys.exit(0)
 
@@ -56,7 +56,7 @@ def find_images() -> List[str]:
         log.error("/img must exist")
         sys.exit(1)
     if os.path.isfile("/img"):
-        return collections.deque(["/img"])
+        return ["/img"]
     if not os.path.isdir("/img"):
         log.error("/img must be file or directory")
         sys.exit(1)
@@ -75,14 +75,14 @@ def find_images() -> List[str]:
 # This is the class where magic happens
 class Worker:
     started_lock = threading.Lock()
-    started_queue = collections.deque()
+    started_queue: Deque[str] = collections.deque()
     finished_lock = threading.Lock()
-    finished_queue = collections.deque()
+    finished_queue: Deque[str] = collections.deque()
     kill_progress = False
 
     # shared state
     input_lock = threading.Lock()
-    input_paths: Deque[str]  # = collections.deque()
+    input_paths: Deque[str]
 
     def __init__(self, paths: List[str]) -> None:
         self.input_paths = collections.deque(paths)
