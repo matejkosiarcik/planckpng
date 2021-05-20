@@ -5,7 +5,6 @@ workflows:
   circleci-build:
     jobs:
       - azlint
-      - lint
       - build
 
 jobs:
@@ -16,13 +15,6 @@ jobs:
       - checkout
       - run: azlint
 
-  lint:
-    docker:
-      - image: node:lts
-    steps:
-      - checkout
-      - run: npm ci && npm run lint
-
   build:
     docker:
       - image: docker
@@ -30,4 +22,4 @@ jobs:
       - checkout
       - setup_remote_docker
       - run: apk add --no-cache alpine-sdk nodejs npm bash
-      - run: make bootstrap build
+      - run: make bootstrap build test
