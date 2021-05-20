@@ -75,9 +75,9 @@ def find_images() -> List[str]:
 # This is the class where magic happens
 class Worker:
     started_lock = threading.Lock()
-    started_queue : Deque[str] = collections.deque()
+    started_queue: Deque[str] = collections.deque()
     finished_lock = threading.Lock()
-    finished_queue : Deque[str] = collections.deque()
+    finished_queue: Deque[str] = collections.deque()
     kill_progress = False
 
     # shared state
