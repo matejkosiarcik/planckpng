@@ -23,7 +23,11 @@ function teardown() {
 @test 'Dry run single file' {
     cp 'test/1x1.png' "$tmpdir/"
     run docker run --volume "$tmpdir/1x1.png:/img" matejkosiarcik/millipng:dev --level fast --dry-run
+
+    # verify program output
     [ "$status" -eq 0 ]
+    [ "$(printf '%s' "$output" | wc -l)" -eq 1 ]
+    printf '%s' "$output" | grep '/img'
 
     # verify the contents of the file did not change
     [ "$(wc -c <"$tmpdir/1x1.png")" -eq "$(wc -c <'test/1x1.png')" ]
@@ -43,7 +47,12 @@ function teardown() {
 @test 'Dry run multiple files' {
     cp 'test/1x1.png' 'test/2x2.png' "$tmpdir/"
     run docker run --volume "$tmpdir:/img" matejkosiarcik/millipng:dev --dry-run
+
+    # verify program output
     [ "$status" -eq 0 ]
+    [ "$(printf '%s' "$output" | wc -l)" -eq 2 ]
+    printf '%s' "$output" | grep '/img/1x1.png'
+    printf '%s' "$output" | grep '/img/2x2.png'
 
     # verify the contents of the files did not change
     [ "$(wc -c <"$tmpdir/1x1.png")" -eq "$(wc -c <'test/1x1.png')" ]
