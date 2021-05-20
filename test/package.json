@@ -1,7 +1,8 @@
 {
   "private": true,
   "scripts": {
-    "test": "./node_modules/bats/bin/bats --recursive tests"
+    "test": "./node_modules/bats/bin/bats --recursive tests",
+    "test-lite": "./node_modules/bats/bin/bats tests/cli.bats"
   },
   "dependencies": {
     "bats": "^1.3.0"
