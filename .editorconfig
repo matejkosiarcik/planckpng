@@ -12,9 +12,8 @@ insert_final_newline = true
 trim_trailing_whitespace = true
 # max_line_length - probably better to leave to language specific tools
 
-# Ignore binaries
-# TODO: maybe this is not necessary, check if eclint ignores binaries by default
-[*.{so,pdb,dylib,dll,cache,a,zip,7z,gz,xz,jpg,jpeg,png,gif,bmp,webp,webm,mp4,avi,mkv,exe,bin}]
+# Ignore binaries and archives
+[*.{so,pdb,dylib,dll,cache,a,zip,tar,7z,gz,xz,jpg,jpeg,png,gif,bmp,ico,webp,webm,mp4,avi,mkv,exe,bin}]
 charset = unset
 end_of_line = unset
 indent_size = unset
@@ -27,7 +26,7 @@ trim_trailing_whitespace = unset
 insert_final_newline = false
 
 # Makefiles must be indented using tabs
-[*{,GNU,BSD}{makefile,Makefile,.make}]
+[*{makefile,Makefile,.make}]
 indent_style = tab
 
 # Trailing whitespace is generally permitted in markdown
@@ -38,7 +37,7 @@ indent_style = tab
 ### Documentation and Configuration # ###
 
 # Most documentation formats prefer 2 spaces per indent level
-[*.{yml,yaml,toml,xml,html,svg,xlf,sdef,md,mdown,markdown,css,scss,sass,less}]
+[*.{yml,yaml,toml,xml,html,xhtml,htm,svg,xlf,sdef,md,mdown,markdown,css,scss,sass,less}]
 indent_size = 2
 
 # Multiline comments
@@ -47,20 +46,20 @@ block_comment_end = -->
 block_comment_start = <!--
 
 # C-style languages multiline comments
-[{*.{c,h}{,pp,xx,++},*.{m,cc,hh,mm,C,H,M},*.swift,*.{js,ts}{,x},*.php{,4,5,7},*.{java,scala,sc,kt,ktm,kts},*.{cs,fs}{,x}}]
+[*.{c,cc,C,cpp,cxx,c++,h,hh,H,hpp,hxx,h++,m,mm,M,swift,js,ts,jsx,tsx,php,java,scala,sc,kt,ktm,kts,cs,fs}]
 block_comment = *
 block_comment_end = */
 block_comment_start = /*
 
 ### Apple ecosystem ###
 
-[{Fastfile,{Podfile,Cartfile}{,.resolved}}]
+[*{Fastfile,Podfile,Cartfile}{,.resolved}]
 indent_size = 2
 
-# TODO: [{*.plist,*.entitlements,*.stringsdict}]
-# TODO: [{*.storyboard,*.xib}]
+# TODO: [*.{plist,*.entitlements,*.stringsdict}]
+# TODO: [*.{storyboard,xib}]
 # TODO: [*.strings]
-# TODO: [{*.pbxproj,*.xcworkspacedata,*.xcscheme}]
+# TODO: [*.{pbxproj,xcworkspacedata,xcscheme}]
 
 ### JavaScript ecosystem ###
 
@@ -74,7 +73,7 @@ indent_size = 2
 ### Ruby ecosystem ###
 
 # Indent Gemfile using 2 spaces
-[{Rakefile,Gemfile}]
+[*{Rakefile,Gemfile}]
 indent_size = 2
 
 # There is a bug that erronously outputs 3 spaces per indent for last few lines of Gemfile.lock
@@ -100,5 +99,6 @@ indent_style = tab
 end_of_line = crlf
 
 ### Java/JVM/Android ecosystem ###
+
 [gradlew]
 indent_size = 2
