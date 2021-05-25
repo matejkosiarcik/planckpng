@@ -58,4 +58,5 @@ jobs:
           VALIDATE_ALL_CODEBASE: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
           DEFAULT_BRANCH: master
           LINTER_RULES_PATH: /
+          JSON_V8R_FILTER_REGEX_EXCLUDE: composer.json
           # Rest of the config is in /.mega-linter.yml
