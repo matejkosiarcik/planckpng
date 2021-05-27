@@ -20,7 +20,6 @@ jobs:
       - image: docker
     steps:
       - checkout
-      - setup_remote_docker:
-          version: "20.10.2" # TODO: remove when this version becomes the default
+      - setup_remote_docker
       - run: apk add --no-cache alpine-sdk nodejs npm bash
       - run: make bootstrap build test-lite
