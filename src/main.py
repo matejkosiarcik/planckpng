@@ -192,7 +192,7 @@ def main(argv: Optional[List[str]]):
 
     # parse arguments
     parser = argparse.ArgumentParser(prog="millipng")
-    parser.add_argument("-V", "--version", action="version", version="%(prog)s 0.2.0")
+    parser.add_argument("-V", "--version", action="version", version="%(prog)s 0.2.2")
     parser.add_argument(
         "-l",
         "--level",
