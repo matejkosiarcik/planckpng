@@ -14,6 +14,7 @@ import subprocess
 import sys
 import threading
 import time
+from os import path
 from typing import Deque, List, Optional
 
 # default logging config
@@ -52,19 +53,19 @@ def signal_handler(signal_name, _):
 
 # Find all png files to optimize
 def find_images() -> List[str]:
-    if not os.path.exists("/img"):
+    if not path.exists("/img"):
         log.error("/img must exist")
         sys.exit(1)
-    if os.path.isfile("/img"):
+    if path.isfile("/img"):
         return ["/img"]
-    if not os.path.isdir("/img"):
+    if not path.isdir("/img"):
         log.error("/img must be file or directory")
         sys.exit(1)
 
     results = []
     for dir_name, _, file_list in os.walk("/img"):
-        results += [os.path.join(dir_name, x) for x in file_list if re.match(r"^.+\.png$", x)]
-    results = [x for x in results if os.path.isfile(x)]
+        results += [path.join(dir_name, x) for x in file_list if re.match(r"^.+\.png$", x)]
+    results = [x for x in results if path.isfile(x)]
     results = sorted(results)
 
     log.debug("Found images: %s\n", "\n".join(f"- {x}" for x in results))
