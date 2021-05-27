@@ -1,13 +1,6 @@
 #!/bin/sh
 # Contains helper functions for individual tools
 
-statistics() {
-    input_size="$(wc -c <"$1")"
-    output_size="$(wc -c <"$2")"
-    optimization_ratio="$(printf 'scale=2; %s / %s * 100\n' "$output_size" "$input_size" | bc)"
-    printf '%s -> %s [%s%%]\n' "$input_size" "$output_size" "$optimization_ratio"
-}
-
 run_truepng() {
     # prepare
     image="$1"
@@ -17,7 +10,6 @@ run_truepng() {
     cd "$workdir" || return 1
 
     # run
-    # printf 'TruePNG...'
     case "$mode" in
     'fast') truepng 'input.png' /o 2 /quiet /y /out 'output.png' >/dev/null 2>&1 || true ;;
     'default') truepng 'input.png' /o 3 /quiet /y /out 'output.png' >/dev/null 2>&1 || true ;;
@@ -28,8 +20,6 @@ run_truepng() {
         exit 1
         ;;
     esac
-    # printf '\rTruePNG: '
-    # statistics 'input.png' 'output.png'
 
     # cleanup
     cd - >/dev/null || return 1
@@ -46,10 +36,7 @@ run_pngoptimizer() {
     cd "$workdir" || return 1
 
     # run
-    # printf 'PNG Optimizer...'
     pngoptimizer -AvoidGreyWithSimpleTransparency -IgnoreAnimatedGifs -KeepBackgroundColor:R -KeepTextualData:R -stdio <'input.png' >'output.png'
-    # printf '\rPNG Optimizer: '
-    # statistics 'input.png' 'output.png'
 
     # cleanup
     cd - >/dev/null || return 1
@@ -66,7 +53,6 @@ run_optipng() {
     cd "$workdir" || return 1
 
     # run
-    # printf 'OptiPNG...'
     case "$mode" in
     'fast') optipng -quiet -strip all -o3 'input.png' -out 'output.png' ;;
     'default') optipng -quiet -strip all -o5 'input.png' -out 'output.png' ;;
@@ -77,8 +63,6 @@ run_optipng() {
         exit 1
         ;;
     esac
-    # printf '\rOptiPNG: '
-    # statistics 'input.png' 'output.png'
 
     # cleanup
     cd - >/dev/null || return 1
@@ -95,7 +79,6 @@ run_zopflipng() {
     cd "$workdir" || return 1
 
     # run
-    # printf 'ZopfliPNG...'
     case "$mode" in
     'fast') zopflipng -y --iterations=100 --filters=01234mepb --lossy_8bit --lossy_transparent 'input.png' 'output.png' >/dev/null 2>&1 ;;
     'default') zopflipng -y --iterations=250 --filters=01234mepb --lossy_8bit --lossy_transparent 'input.png' 'output.png' >/dev/null 2>&1 ;;
@@ -106,8 +89,6 @@ run_zopflipng() {
         exit 1
         ;;
     esac
-    # printf '\rZopfliPNG: '
-    # statistics 'input.png' 'output.png'
 
     # cleanup
     cd - >/dev/null || return 1
@@ -124,10 +105,7 @@ run_pngout() {
     cd "$workdir" || return 1
 
     # run
-    # printf 'PNGOut...'
     pngout -s0 -k1 -y 'input.png' 'output.png' >/dev/null || true
-    # printf '\rPNGOut: '
-    # statistics 'input.png' 'output.png'
 
     # cleanup
     cd - >/dev/null || return 1
@@ -145,10 +123,7 @@ run_deflopt() {
     cp 'input.png' 'output.png'
 
     # run
-    # printf 'Deflopt...'
     deflopt /s 'output.png' >/dev/null
-    # printf '\rDeflopt: '
-    # statistics 'input.png' 'output.png'
 
     # cleanup
     cd - >/dev/null || return 1
