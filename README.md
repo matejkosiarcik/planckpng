@@ -3,6 +3,7 @@
 > Very slow png optimizer
 
 [![dockerhub automated status](https://img.shields.io/docker/cloud/automated/matejkosiarcik/millipng)](https://hub.docker.com/r/matejkosiarcik/millipng/builds)
+[![dockerhub version](https://img.shields.io/docker/v/matejkosiarcik/millipng?label=dockerhub&sort=semver)](https://hub.docker.com/r/matejkosiarcik/millipng/tags?page=1&ordering=last_updated)
 
 <!-- toc -->
 
