@@ -36,6 +36,11 @@ This ensures consistent runtime environment with no configuration on your side
 (few of the included optimizers require wine to run on non Windows OS, which is
 already setup in the image).
 
+### Features
+
+- ✨ Best in class optimization
+- 📂 Optimize single file or whole directory
+
 ## Usage
 
 ![millipng demo](./doc/demo.gif)

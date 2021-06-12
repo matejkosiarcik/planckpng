@@ -6,7 +6,6 @@ sources:
     type: git
     sparse_paths:
       -
-    link:
     links:
       -
     scripts:
@@ -18,7 +17,6 @@ sources_locked:
     type: git
     sparse_paths:
       -
-    link:
     links:
       -
     scripts:
