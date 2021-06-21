@@ -15,7 +15,7 @@ import sys
 import threading
 import time
 from os import path
-from typing import Deque, List, Optional
+from typing import Deque, List
 
 # default logging config
 log = logging.Logger("default", logging.INFO)
@@ -183,12 +183,9 @@ class Worker:
                 self.finished_queue.append(image_path)
 
 
-def main(argv: Optional[List[str]]):
+def main(argv: List[str]):
     signal.signal(signal.SIGINT, signal_handler)
     log.addHandler(logging.StreamHandler(sys.stderr))
-
-    if argv is None:
-        argv = sys.argv[1:]
 
     # parse arguments
     parser = argparse.ArgumentParser(prog="millipng")
