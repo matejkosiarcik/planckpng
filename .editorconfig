@@ -12,7 +12,7 @@ insert_final_newline = true
 trim_trailing_whitespace = true
 # max_line_length - probably better to leave to language specific tools
 
-# Ignore binaries and archives
+# Ignore binaries
 [*.{so,pdb,dylib,dll,cache,a,zip,tar,7z,gz,xz,jpg,jpeg,png,gif,bmp,ico,webp,webm,mp4,avi,mkv,exe,bin}]
 charset = unset
 end_of_line = unset
@@ -56,10 +56,8 @@ block_comment_start = /*
 [*{Fastfile,Podfile,Cartfile}{,.resolved}]
 indent_size = 2
 
-# TODO: [*.{plist,*.entitlements,*.stringsdict}]
-# TODO: [*.{storyboard,xib}]
-# TODO: [*.strings]
-# TODO: [*.{pbxproj,xcworkspacedata,xcscheme}]
+[*.{plist,entitlements,stringsdict,strings,storyboard,xib,pbxproj,xcworkspacedata,xcscheme}]
+indent_size = 2
 
 ### JavaScript ecosystem ###
 
@@ -99,6 +97,5 @@ indent_style = tab
 end_of_line = crlf
 
 ### Java/JVM/Android ecosystem ###
-
 [gradlew]
 indent_size = 2

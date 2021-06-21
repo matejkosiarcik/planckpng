@@ -1,11 +1,9 @@
 # Helper Makefile to group scripts for development
 
 MAKEFLAGS += --warn-undefined-variables
-PROJECT_DIR := $(dir $(abspath $(MAKEFILE_LIST)))
-AZLINT_VERSION ?= dev
-DESTDIR ?= $$HOME/bin
 SHELL := /bin/sh
 .SHELLFLAGS := -ec
+PROJECT_DIR := $(dir $(abspath $(MAKEFILE_LIST)))
 
 .POSIX:
 
