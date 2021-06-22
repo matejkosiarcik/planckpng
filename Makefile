@@ -9,7 +9,7 @@ PROJECT_DIR := $(dir $(abspath $(MAKEFILE_LIST)))
 
 .DEFAULT: all
 .PHONY: all
-all: build
+all: bootstrap build
 
 .PHONY: bootstrap
 bootstrap:
@@ -26,3 +26,7 @@ test:
 .PHONY: test-lite
 test-lite:
 	npm --prefix test run test-lite
+
+.PHONY: doc
+doc:
+	@$(MAKE) -C$(PROJECT_DIR)/doc/demo bootstrap record
