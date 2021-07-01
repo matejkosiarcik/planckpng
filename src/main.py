@@ -12,6 +12,7 @@ import re
 import signal
 import subprocess
 import sys
+import termios
 import threading
 import time
 from os import path
@@ -225,6 +226,12 @@ def main(argv: List[str]):
         # get it dynamically by cpu core count
         thread_count = multiprocessing.cpu_count()
     log.debug("Using %s threads", thread_count)
+
+    # disable priting characters input by user (so it does not mess up the console output)
+    attributes = termios.tcgetattr(sys.stdin.fileno())
+    attributes[3] = attributes[3] & ~termios.ECHO
+    attributes[3] = attributes[3] & ~termios.ICANON
+    termios.tcsetattr(sys.stdin.fileno(), termios.TCSANOW, attributes)
 
     worker = Worker(find_images())
 
