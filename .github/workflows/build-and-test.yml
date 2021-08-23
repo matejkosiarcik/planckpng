@@ -20,7 +20,7 @@ jobs:
         uses: docker/setup-buildx-action@v1.5.1
 
       - name: Buildx 🔧
-        uses: docker/build-push-action@v2.6.1
+        uses: docker/build-push-action@v2.7.0
         with:
           platforms: linux/amd64
           push: false
