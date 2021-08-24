@@ -13,8 +13,6 @@ updates:
     assignees:
       - matejkosiarcik
     open-pull-requests-limit: 1
-    labels:
-      - automerge
 
   # Main docker
   - package-ecosystem: docker
@@ -28,8 +26,6 @@ updates:
     assignees:
       - matejkosiarcik
     open-pull-requests-limit: 1
-    labels:
-      - automerge
 
   # Dependencies
   - package-ecosystem: npm
@@ -44,8 +40,6 @@ updates:
     assignees:
       - matejkosiarcik
     open-pull-requests-limit: 1
-    labels:
-      - automerge
 
   # Doc
   - package-ecosystem: npm
@@ -60,8 +54,6 @@ updates:
     assignees:
       - matejkosiarcik
     open-pull-requests-limit: 1
-    labels:
-      - automerge
   - package-ecosystem: pip
     directory: "/doc/record"
     schedule:
@@ -73,5 +65,3 @@ updates:
     assignees:
       - matejkosiarcik
     open-pull-requests-limit: 1
-    labels:
-      - automerge
