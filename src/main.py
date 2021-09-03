@@ -94,7 +94,7 @@ class Worker:
         spinner_parts = ["⌞", "⌟", "⌝", "⌜"]
         spinner_index = 0
 
-        work_indices = dict()  # Dict[str, int]
+        work_indices = {}  # Dict[str, int]
         work_queue = collections.deque()  # Deque[Tuple[str, bool]]
         first_working_index = 0  # indicates last (the soonest) item to be still procesing
 
