@@ -3,7 +3,7 @@ pull_request_rules:
     conditions:
       - author=matejkosiarcik
       - assignee=matejkosiarcik
-      - base=master
+      - base=main
       - label!=work-in-progress
       - -title~=^.*((wip)|(WIP)|(Wip)).*$
       - -conflict
