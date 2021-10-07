@@ -5,12 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## \[Unreleased\]
+## \[0.2.4\] - 2021-10-08
 
 - Fixed
   - Proper output when output device is not a tty
 - Changed
   - Replace ubuntu based docker image with raw debian
+  - Optimize docker image size
   - Update dependencies
 
 ## \[0.2.3\] - 2021-05-27
