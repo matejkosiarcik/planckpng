@@ -8,7 +8,7 @@ COPY tools/pngout-20200115.bin /usr/bin/pngout
 COPY tools/defluff-0.3.2.bin /usr/bin/defluff
 RUN printf '%s\n%s\n%s\n' '#!/bin/sh' 'set -euf' 'WINEDEBUG=fixme-all,err-all wine /usr/bin/truepng.exe $@' >/usr/bin/truepng && \
     printf '%s\n%s\n%s\n' '#!/bin/sh' 'set -euf' 'WINEDEBUG=fixme-all,err-all wine /usr/bin/deflopt.exe $@' >/usr/bin/deflopt && \
-    chmod a+x main.py main.sh utils.sh /usr/bin/truepng /usr/bin/deflopt
+    chmod a+x main.py main.sh /usr/bin/truepng /usr/bin/deflopt
 
 # NodeJS/NPM #
 FROM node:lts-slim AS node
@@ -30,7 +30,7 @@ RUN apt-get update && \
     apt-get remove --purge --yes curl && \
     dpkg --add-architecture i386 && \
     apt-get update && \
-    apt-get install --yes --no-install-recommends wine wine32 wine64 libwine libwine:i386 fonts-wine && \
+    apt-get install --yes --no-install-recommends wine wine32 libwine:i386 && \
     rm -rf /var/lib/apt/lists/* && \
     ln -s /src/main.py /usr/bin/millipng
 
