@@ -1,7 +1,0 @@
-linters:
-  shellcheck:
-    shell: sh
-  remarklint:
-    fixer: true
-  yamllint:
-    config: .yamllint.yml

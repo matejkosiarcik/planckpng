@@ -16,7 +16,7 @@ updates:
 
   # Main docker
   - package-ecosystem: docker
-    directory: "/docker"
+    directory: "/"
     schedule:
       interval: daily
       time: "01:00"
@@ -29,7 +29,7 @@ updates:
 
   # Dependencies
   - package-ecosystem: npm
-    directory: "/docker/dependencies"
+    directory: "/dependencies"
     versioning-strategy: increase
     schedule:
       interval: daily

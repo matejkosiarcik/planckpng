@@ -32,6 +32,7 @@ jobs:
           VALIDATE_TYPESCRIPT_STANDARD: false
           VALIDATE_RUST_2015: false
           VALIDATE_RUST_CLIPPY: false # somehow fails the compilation
+          VALIDATE_SHELL_SHFMT: false # always errors out for bats files
 
           # config files
           DOCKERFILE_HADOLINT_FILE_NAME: .hadolint.yaml

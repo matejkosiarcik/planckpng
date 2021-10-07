@@ -91,6 +91,8 @@ class Worker:
 
     # This is a dedicated thread for displaying progress
     def progress_worker(self):
+        # pylint: disable=too-many-branches,too-many-statements
+
         spinner_parts = ["⌞", "⌟", "⌝", "⌜"]
         spinner_index = 0
 
@@ -99,7 +101,7 @@ class Worker:
         first_working_index = 0  # indicates last (the soonest) item to be still procesing
 
         while True:
-            time.sleep(0.15)
+            time.sleep(0.15)  # refresh interval
 
             # first copy started items to our temporary queue to not block other threads
             temporary_started_queue = collections.deque()
@@ -112,27 +114,33 @@ class Worker:
                 item = temporary_started_queue.popleft()
                 work_indices[item] = len(work_queue)
                 work_queue.append((item, True))
-                print(item, end="\n")
+                if sys.stdout.isatty():
+                    print(item)
+                else:
+                    print(f"{item}...")
+                    sys.stdout.flush()
 
-            # basically show working items in terminal
-            for i in range(first_working_index, len(work_queue)):
-                if not work_queue[i][1]:
-                    continue
-                offset_from_last = len(work_queue) - i
-                item = re.sub(r"^/img/", "", work_queue[i][0])
-                up_command = re.sub(r"0", str(offset_from_last), Termcode.UP_NLINES.value)
-                down_command = re.sub(r"0", str(offset_from_last), Termcode.DOWN_NLINES.value)
-                print(f"{up_command}\r", end="")
-                print(f"{Termcode.ERASE_LINE}\r{item} {spinner_parts[spinner_index]}", end="")
-                print(f"{down_command}\r", end="")
+            # basically show working items in terminal with a progress spinner
+            if sys.stdout.isatty():
+                for i in range(first_working_index, len(work_queue)):
+                    if not work_queue[i][1]:
+                        continue
+                    offset_from_last = len(work_queue) - i
+                    item = re.sub(r"^/img/", "", work_queue[i][0])
+                    up_command = re.sub(r"0", str(offset_from_last), Termcode.UP_NLINES.value)
+                    down_command = re.sub(r"0", str(offset_from_last), Termcode.DOWN_NLINES.value)
+                    print(f"{up_command}\r", end="")
+                    print(f"{Termcode.ERASE_LINE}\r{item} {spinner_parts[spinner_index]}", end="")
+                    print(f"{down_command}\r", end="")
 
-            # first copy finished items to our temporary queue to not block other threads
+            # prepare finished items
+            # copy finished items to our temporary queue to not block worker threads
             temporary_finished_queue = collections.deque()
             with self.finished_lock:
                 for _ in range(len(self.finished_queue)):
                     temporary_finished_queue.append(self.finished_queue.popleft())
 
-            # process current work items
+            # print finished items
             for _ in range(len(temporary_finished_queue)):
                 item = temporary_finished_queue.popleft()
                 work_index = work_indices[item]
@@ -140,27 +148,35 @@ class Worker:
                 if work_index == first_working_index:
                     while len(work_queue) > first_working_index and not work_queue[first_working_index][1]:
                         item = re.sub(r"^/img/", "", work_queue[first_working_index][0])
-                        offset_from_last = len(work_queue) - first_working_index
-                        up_command = re.sub(r"0", str(offset_from_last), Termcode.UP_NLINES.value)
-                        down_command = re.sub(r"0", str(offset_from_last), Termcode.DOWN_NLINES.value)
+                        if sys.stdout.isatty():
+                            offset_from_last = str(len(work_queue) - first_working_index)
+                            up_command = re.sub(r"0", offset_from_last, Termcode.UP_NLINES.value)
+                            down_command = re.sub(r"0", offset_from_last, Termcode.DOWN_NLINES.value)
+                            print(f"{up_command}\r", end="")
+                            print(
+                                f"{Termcode.ERASE_LINE}\r{item} {Termcode.GREEN}✔{Termcode.RESET}",
+                                end="",
+                            )
+                            print(f"{down_command}\r", end="")
+                        else:
+                            print(f"{item} ✔")
+                            sys.stdout.flush()
+                        first_working_index += 1
+                else:
+                    item = re.sub(r"^/img/", "", work_queue[work_index][0])
+                    if sys.stdout.isatty():
+                        offset_from_last = str(len(work_queue) - work_index)
+                        up_command = re.sub(r"0", offset_from_last, Termcode.UP_NLINES.value)
+                        down_command = re.sub(r"0", offset_from_last, Termcode.DOWN_NLINES.value)
                         print(f"{up_command}\r", end="")
                         print(
                             f"{Termcode.ERASE_LINE}\r{item} {Termcode.GREEN}✔{Termcode.RESET}",
                             end="",
                         )
                         print(f"{down_command}\r", end="")
-                        first_working_index += 1
-                else:
-                    item = re.sub(r"^/img/", "", work_queue[work_index][0])
-                    offset_from_last = len(work_queue) - work_index
-                    up_command = re.sub(r"0", str(offset_from_last), Termcode.UP_NLINES.value)
-                    down_command = re.sub(r"0", str(offset_from_last), Termcode.DOWN_NLINES.value)
-                    print(f"{up_command}\r", end="")
-                    print(
-                        f"{Termcode.ERASE_LINE}\r{item} {Termcode.GREEN}✔{Termcode.RESET}",
-                        end="",
-                    )
-                    print(f"{down_command}\r", end="")
+                    else:
+                        print(f"{item} ✔")
+                        sys.stdout.flush()
 
             spinner_index = (spinner_index + 1) % len(spinner_parts)
             if self.kill_progress:
@@ -228,10 +244,11 @@ def main(argv: List[str]):
     log.debug("Using %s threads", thread_count)
 
     # disable priting characters input by user (so it does not mess up the console output)
-    attributes = termios.tcgetattr(sys.stdin.fileno())
-    attributes[3] = attributes[3] & ~termios.ECHO
-    attributes[3] = attributes[3] & ~termios.ICANON
-    termios.tcsetattr(sys.stdin.fileno(), termios.TCSANOW, attributes)
+    if sys.stdout.isatty():
+        attributes = termios.tcgetattr(sys.stdin.fileno())
+        attributes[3] = attributes[3] & ~termios.ECHO
+        attributes[3] = attributes[3] & ~termios.ICANON
+        termios.tcsetattr(sys.stdin.fileno(), termios.TCSANOW, attributes)
 
     worker = Worker(find_images())
 
