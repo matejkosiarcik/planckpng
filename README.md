@@ -75,7 +75,7 @@ optional arguments:
 
 ### Recommendation
 
-For maximum results, I recommend
+For maximum optimization, I recommend
 
 1. call _pngquant_ before _millipng_ (beware _pngquant_ is lossy)
 2. use `--level ultra-rute` in _millipng_ (beware this takes a **really long time** for any sizible png)
