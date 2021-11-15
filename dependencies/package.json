@@ -5,7 +5,7 @@
     "postinstall": "node-prune"
   },
   "dependencies": {
-    "zopflipng-bin": "^7.0.1"
+    "zopflipng-bin": "^7.1.0"
   },
   "devDependencies": {
     "node-prune": "^1.0.2"
