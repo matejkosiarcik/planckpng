@@ -1,4 +1,4 @@
-FROM debian:11.1 AS chmod
+FROM debian:11.2 AS chmod
 WORKDIR /src
 COPY src/main.py src/main.sh src/utils.sh ./
 COPY tools/truepng-0.6.2.5.exe /usr/bin/truepng.exe
@@ -17,7 +17,7 @@ COPY dependencies/package.json dependencies/package-lock.json ./
 RUN npm ci --unsafe-perm && \
     npm prune --production
 
-FROM debian:11.1
+FROM debian:11.2
 WORKDIR /src
 COPY --from=chmod /src/main.py /src/main.sh /src/utils.sh ./
 COPY --from=chmod /usr/bin/truepng.exe /usr/bin/truepng /usr/bin/deflopt.exe /usr/bin/deflopt /usr/bin/pngoptimizer /usr/bin/pngout /usr/bin/defluff /usr/bin/
