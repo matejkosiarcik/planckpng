@@ -21,7 +21,8 @@ FROM debian:11.2-slim AS node-install
 WORKDIR /src
 RUN apt-get update && \
     apt-get install --yes --no-install-recommends ca-certificates curl && \
-    curl -fsSL https://deb.nodesource.com/setup_lts.x -o /src/install-node.sh
+    curl -fsSL https://deb.nodesource.com/setup_lts.x -o /src/install-node.sh && \
+    rm -rf /var/lib/apt/lists/*
 
 FROM debian:11.2
 WORKDIR /src
@@ -30,13 +31,11 @@ COPY --from=chmod /usr/bin/truepng.exe /usr/bin/truepng /usr/bin/deflopt.exe /us
 COPY --from=node-install /src/install-node.sh /src/install-node.sh
 COPY --from=node /src/node_modules /src/node_modules
 # hadolint ignore=SC2016
-RUN apt-get update && \
-    bash /src/install-node.sh && \
-    DEBIAN_FRONTEND=noninteractive apt-get install --yes --no-install-recommends nodejs optipng python3 && \
+RUN bash /src/install-node.sh && \
     rm -f /src/install-node.sh && \
     dpkg --add-architecture i386 && \
     apt-get update && \
-    DEBIAN_FRONTEND=noninteractive apt-get install --yes --no-install-recommends wine wine32 libwine:i386 && \
+    DEBIAN_FRONTEND=noninteractive apt-get install --yes --no-install-recommends libwine:i386 nodejs optipng python3 wine wine32 && \
     rm -rf /var/lib/apt/lists/* && \
     ln -s /src/main.py /usr/bin/millipng
 
