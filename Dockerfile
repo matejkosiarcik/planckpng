@@ -31,7 +31,6 @@ COPY --from=chmod /src/main.py /src/main.sh /src/utils.sh ./
 COPY --from=chmod /usr/bin/truepng.exe /usr/bin/truepng /usr/bin/deflopt.exe /usr/bin/deflopt /usr/bin/pngoptimizer /usr/bin/pngout /usr/bin/defluff /usr/bin/
 COPY --from=node-install /src/install-node.sh /src/install-node.sh
 COPY --from=node /src/node_modules /src/node_modules
-# hadolint ignore=SC2016
 RUN bash /src/install-node.sh && \
     rm -f /src/install-node.sh && \
     dpkg --add-architecture i386 && \
