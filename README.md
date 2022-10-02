@@ -13,7 +13,10 @@
 - [Overview](#overview)
   - [Features](#features)
 - [Usage](#usage)
+  - [Unix Systems](#linuxmacos)
+  - [Windows](#windows)
   - [Recommendation](#recommendation)
+- [Help](#help)
 - [License](#license)
 
 <!-- tocstop -->
@@ -44,6 +47,8 @@ already setup in the image).
 
 ## Usage
 
+### Linux/MacOS
+
 ![millipng demo](./doc/demo.gif)
 
 ```sh
@@ -54,7 +59,31 @@ docker run -v "$PWD:/img" matejkosiarcik/millipng
 docker run -v "$PWD/image.png:/img" matejkosiarcik/millipng
 ```
 
-When in doubt, get help:
+### Windows
+(Replace $PWD with %cd%)
+```bat
+# optimize all pngs in current directory (recursively)
+docker run -v "%cd%:/img" matejkosiarcik/millipng
+
+# optimize single png
+docker run -v "%cd%/image.png:/img" matejkosiarcik/millipng
+```
+
+### Recommendation
+
+For maximum optimization, I recommend
+
+1. call _pngquant_ before _millipng_ (beware _pngquant_ is lossy)
+2. use `--level ultra-brute` in _millipng_ (beware this takes a **really long time** for any sizible png)
+
+Example:
+
+```sh
+pngquant --strip --speed 1 --skip-if-larger --quality 0-95 --force 'image.png' --output 'image.png'
+docker run -v "$PWD/image.png:/img" matejkosiarcik/millipng --level ultra-brute
+```
+
+## Help
 
 ```sh
 $ docker run matejkosiarcik/millipng --help
@@ -71,20 +100,6 @@ optional arguments:
                         automatically determine according to current cpu)
   -v, --verbose         Additional logging output
   -q, --quiet           Suppress default logging output
-```
-
-### Recommendation
-
-For maximum optimization, I recommend
-
-1. call _pngquant_ before _millipng_ (beware _pngquant_ is lossy)
-2. use `--level ultra-brute` in _millipng_ (beware this takes a **really long time** for any sizible png)
-
-Example:
-
-```sh
-pngquant --strip --speed 1 --skip-if-larger --quality 0-95 --force 'image.png' --output 'image.png'
-docker run -v "$PWD/image.png:/img" matejkosiarcik/millipng --level ultra-brute
 ```
 
 ## License
