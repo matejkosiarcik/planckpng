@@ -1,4 +1,4 @@
-FROM debian:11.6-slim AS chmod
+FROM debian:12.0-slim AS chmod
 WORKDIR /src
 COPY src/main.py src/main.sh src/utils.sh ./
 COPY tools/deflopt-2.07.exe /usr/bin/deflopt.exe
@@ -16,7 +16,7 @@ COPY dependencies/package.json dependencies/package-lock.json ./
 RUN npm ci --unsafe-perm && \
     npm prune --production
 
-FROM debian:11.6-slim
+FROM debian:12.0-slim
 WORKDIR /src
 COPY --from=chmod /src/main.py /src/main.sh /src/utils.sh ./
 COPY --from=chmod /usr/bin/deflopt /usr/bin/deflopt.exe /usr/bin/defluff /usr/bin/pngoptimizer /usr/bin/pngout /usr/bin/truepng /usr/bin/truepng.exe /usr/bin/
