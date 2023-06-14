@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Miscellaneous
   - Optimize docker image
   - Update dependencies
+- Rename project `millipng` -> `planckpng`
 
 ## \[0.2.4\] - 2021-10-08
 

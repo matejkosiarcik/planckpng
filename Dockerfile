@@ -14,6 +14,7 @@ FROM node:20.0.0-slim AS node
 WORKDIR /src
 COPY dependencies/package.json dependencies/package-lock.json ./
 RUN npm ci --unsafe-perm && \
+    npx node-prune && \
     npm prune --production
 
 FROM debian:12.0-slim

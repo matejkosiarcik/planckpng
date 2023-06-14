@@ -1,9 +1,6 @@
 {
   "private": true,
   "name": "example",
-  "scripts": {
-    "postinstall": "node-prune"
-  },
   "dependencies": {
     "zopflipng-bin": "^7.1.0"
   },

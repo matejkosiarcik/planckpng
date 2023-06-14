@@ -3,7 +3,7 @@
 MAKEFLAGS += --warn-undefined-variables
 SHELL := /bin/sh
 .SHELLFLAGS := -ec
-PROJECT_DIR := $(dir $(abspath $(MAKEFILE_LIST)))
+PROJECT_DIR := $(abspath $(dir $(MAKEFILE_LIST)))
 
 .POSIX:
 
