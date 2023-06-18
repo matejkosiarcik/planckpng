@@ -1,0 +1,29 @@
+name: Lint
+
+permissions: read-all
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  azlint:
+    name: AZLint
+    runs-on: ubuntu-latest
+    container: matejkosiarcik/azlint:0.4.5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3.5.3
+        with:
+          fetch-depth: 0 # Full git history is needed to get a proper list of changed files
+
+      - name: Run AZLint
+        run: |
+          find .config -type f -exec sh -c 'ln -s "$0" "$(basename "$0")"' {} \; # TODO: Remove
+          if [ "$GITHUB_REF_NAME" = main ]; then
+            azlint
+          else
+            azlint # --only-changed # TODO: Fix
+          fi
