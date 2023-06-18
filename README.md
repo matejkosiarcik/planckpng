@@ -47,7 +47,7 @@ already setup in the image).
 
 ## Usage
 
-### Linux/MacOS
+### Linux & macOS
 
 ![millipng demo](./doc/demo.gif)
 
