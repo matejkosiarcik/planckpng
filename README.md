@@ -1,6 +1,6 @@
 # millipng
 
-> Very slow png optimizer
+> Ultra-brute PNG meta-optimizer
 
 [![dockerhub version](https://img.shields.io/docker/v/matejkosiarcik/millipng?label=dockerhub&sort=semver)](https://hub.docker.com/r/matejkosiarcik/millipng/tags?page=1&ordering=last_updated)
 [![github version](https://img.shields.io/github/v/release/matejkosiarcik/millipng?sort=semver)](https://github.com/matejkosiarcik/millipng/releases)
