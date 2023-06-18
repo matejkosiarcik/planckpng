@@ -29,7 +29,7 @@ _truepng_, _zopflipng_) in a specific order described by (not mine) analysis
 here:
 [reddit.com/r/webdev/wiki](https://www.reddit.com/r/webdev/wiki/optimization#wiki_png_compression_instructions).
 
-_millipng_ is a lossless png optimizer (except removing exif and alpha channel
+_millipng_ is a lossless PNG optimizer (except removing exif and alpha channel
 color info).
 
 _millipng_ is distributed as a docker image.
@@ -78,7 +78,7 @@ optional arguments:
 For maximum optimization, I recommend
 
 1. call _pngquant_ before _millipng_ (beware _pngquant_ is lossy)
-2. use `--level ultra-brute` in _millipng_ (beware this takes a **really long time** for any sizible png)
+2. use `--level ultra-brute` in _millipng_ (beware this takes a **really long time** for any sizible PNG)
 
 Example:
 
