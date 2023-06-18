@@ -15,7 +15,7 @@
 - [Usage](#usage)
   - [Linux/MacOS](#linuxmacos)
   - [Windows](#windows)
-  - [Recommendation](#recommendation)
+  - [Recommendations](#recommendations)
 - [Help](#help)
 - [License](#license)
 
