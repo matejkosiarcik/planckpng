@@ -28,4 +28,4 @@ jobs:
       - checkout
       - setup_remote_docker
       - run: apk add --no-cache alpine-sdk nodejs npm bash
-      - run: make bootstrap build test-lite
+      - run: make bootstrap build test
