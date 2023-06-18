@@ -1,26 +1,31 @@
 name: Lint
 
+permissions: read-all
+
 on:
+  push:
+    branches:
+      - main
   pull_request:
 
 jobs:
   super-linter:
-    name: GitHub Super Linter
+    name: SuperLinter
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout 🛎️
-        uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v3.5.3
         with:
           fetch-depth: 0 # Full git history is needed to get a proper list of changed files
 
-      - name: GitHub Super Linter
-        uses: github/super-linter@v4.9.6
+      - name: Run SuperLinter
+        uses: github/super-linter@v5.0.0
         env:
           # global settings
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           VALIDATE_ALL_CODEBASE: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
           DEFAULT_BRANCH: main
-          LINTER_RULES_PATH: /
+          LINTER_RULES_PATH: .config/
 
           # disable
           VALIDATE_CSS: false
@@ -32,7 +37,6 @@ jobs:
           VALIDATE_TYPESCRIPT_STANDARD: false
           VALIDATE_RUST_2015: false
           VALIDATE_RUST_CLIPPY: false # somehow fails the compilation
-          VALIDATE_SHELL_SHFMT: false # always errors out for bats files
 
           # config files
           DOCKERFILE_HADOLINT_FILE_NAME: .hadolint.yaml

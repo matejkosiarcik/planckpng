@@ -1,23 +1,27 @@
 name: Lint
 
+permissions: read-all
+
 on:
+  push:
+    branches:
+      - main
   pull_request:
 
 jobs:
   mega-linter:
-    name: Mega-Linter
+    name: MegaLinter
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout 🛎️
-        uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v3.5.3
         with:
           fetch-depth: 0 # Full git history is needed to get a proper list of changed files
 
-      - name: Mega Linter
-        uses: nvuillam/mega-linter@v6.2.1
+      - name: Run MegaLinter
+        uses: oxsecurity/megalinter@v7.1.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           VALIDATE_ALL_CODEBASE: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
           DEFAULT_BRANCH: main
-          LINTER_RULES_PATH: /
-          # Rest of the config is in /.mega-linter.yml
+          MEGALINTER_CONFIG: .config/.mega-linter.yml
