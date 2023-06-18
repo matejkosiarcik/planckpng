@@ -1,6 +1,6 @@
 # millipng
 
-> Very slow png optimizer
+> Ultra-brute PNG meta-optimizer
 
 [![dockerhub version](https://img.shields.io/docker/v/matejkosiarcik/millipng?label=dockerhub&sort=semver)](https://hub.docker.com/r/matejkosiarcik/millipng/tags?page=1&ordering=last_updated)
 [![github version](https://img.shields.io/github/v/release/matejkosiarcik/millipng?sort=semver)](https://github.com/matejkosiarcik/millipng/releases)
@@ -32,7 +32,7 @@ _truepng_, _zopflipng_) in a specific order described by (not mine) analysis
 here:
 [reddit.com/r/webdev/wiki](https://www.reddit.com/r/webdev/wiki/optimization#wiki_png_compression_instructions).
 
-_millipng_ is a lossless png optimizer (except removing exif and alpha channel
+_millipng_ is a lossless PNG optimizer (except removing exif and alpha channel
 color info).
 
 _millipng_ is distributed as a docker image.
