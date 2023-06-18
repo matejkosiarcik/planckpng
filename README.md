@@ -13,7 +13,7 @@
 - [Overview](#overview)
   - [Features](#features)
 - [Usage](#usage)
-  - [Linux/MacOS](#linuxmacos)
+  - [Linux & macOS](#linux--macos)
   - [Windows](#windows)
   - [Recommendations](#recommendations)
 - [Help](#help)
