@@ -55,26 +55,26 @@ already setup in the image).
 # optimize all pngs in current directory (recursively)
 docker run -v "$PWD:/img" matejkosiarcik/millipng
 
-# optimize single png
+# optimize a single png
 docker run -v "$PWD/image.png:/img" matejkosiarcik/millipng
 ```
 
 ### Windows
-(Replace $PWD with %cd%)
+
 ```bat
 # optimize all pngs in current directory (recursively)
 docker run -v "%cd%:/img" matejkosiarcik/millipng
 
-# optimize single png
+# optimize a single png
 docker run -v "%cd%/image.png:/img" matejkosiarcik/millipng
 ```
 
-### Recommendation
+### Recommendations
 
 For maximum optimization, I recommend
 
 1. call _pngquant_ before _millipng_ (beware _pngquant_ is lossy)
-2. use `--level ultra-brute` in _millipng_ (beware this takes a **really long time** for any sizible png)
+2. use `--level ultra-brute` in _millipng_ (beware this takes a **really long time** for any sizible PNG)
 
 Example:
 
