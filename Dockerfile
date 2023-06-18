@@ -1,3 +1,5 @@
+# checkov:skip=CKV_DOCKER_2:Disable HEALTHCHECK
+
 FROM debian:12.0-slim AS chmod
 WORKDIR /src
 COPY src/main.py src/main.sh src/utils.sh ./
@@ -28,7 +30,9 @@ RUN apt-get update && \
     apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install --yes --no-install-recommends libwine:i386 wine wine32 && \
     rm -rf /var/lib/apt/lists/* && \
-    ln -s /src/main.py /usr/bin/millipng
+    ln -s /src/main.py /usr/bin/millipng && \
+    useradd --create-home --no-log-init --shell /bin/sh --user-group --system millipng
 
+USER millipng
 ENTRYPOINT [ "millipng" ]
 CMD []
