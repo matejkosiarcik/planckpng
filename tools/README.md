@@ -10,7 +10,7 @@ Here is the list of links where I got these tools:
 
 - **Deflopt**
   - <https://encode.su/threads/3257-Deflopt>
-- **defluff**
+- **Defluff**
   - <https://encode.su/threads/1214-defluff-a-deflate-huffman-optimizer>
 - **PngOptimizer**
   - <https://psydk.org/pngoptimizer>

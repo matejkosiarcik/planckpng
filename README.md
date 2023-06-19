@@ -24,7 +24,7 @@
 
 A meta-optimizer?
 _PlanckPNG_ is not an optimizer by itself, it just calls multiple existing
-optimizers (_Deflopt_, _defluff_, _OptiPNG_, _PngOptimizer_, _PNGOUT_,
+optimizers (_Deflopt_, _Defluff_, _OptiPNG_, _PngOptimizer_, _PNGOUT_,
 _TruePNG_, _ZopfliPNG_) in a specific order described by (not mine) analysis
 here:
 [reddit.com/r/webdev/wiki](https://www.reddit.com/r/webdev/wiki/optimization#wiki_png_compression_instructions).
@@ -70,8 +70,8 @@ docker run -v "%cd%/image.png:/img" matejkosiarcik/planckpng
 
 For maximum optimization, I recommend
 
-1. call _pngquant_ before _planckpng_ (beware _pngquant_ is lossy)
-2. use `--level ultra-brute` in _planckpng_ (beware this takes a **really long time** for any sizible PNG)
+1. call _Pngquant_ before _PlanckPNG_ (beware _Pngquant_ is lossy)
+2. use `--level ultra-brute` in _PlanckPNG_ (beware this takes a **really long time** for any sizible PNG)
 
 Example:
 
