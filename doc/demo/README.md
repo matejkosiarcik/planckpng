@@ -1,4 +1,4 @@
-# Millipng recording
+# PlanckPNG recording
 
 > This directory houses all the tools&scripts used in making the demo recording
 

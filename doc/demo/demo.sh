@@ -15,5 +15,5 @@ cd "$workdir"
 
 clear
 # shellcheck disable=SC2016
-pei 'docker run -itv "$PWD:/img" matejkosiarcik/millipng:dev --level fast'
+pei 'docker run -itv "$PWD:/img" matejkosiarcik/planckpng:dev --level fast'
 pei '' # basically prompt another line that keeps the results in view a bit longer
