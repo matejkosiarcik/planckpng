@@ -8,13 +8,13 @@
 
 Here is the list of links where I got these tools:
 
-- deflopt
+- **Deflopt**
   - <https://encode.su/threads/3257-Deflopt>
-- defluff
+- **defluff**
   - <https://encode.su/threads/1214-defluff-a-deflate-huffman-optimizer>
-- pngoptimizer
+- **PngOptimizer**
   - <https://psydk.org/pngoptimizer>
-- pngout
+- **PNGOUT**
   - <http://www.jonof.id.au/kenutils.html>
-- truepng
+- **TruePNG**
   - <http://x128.ho.ua/pngutils.html>
