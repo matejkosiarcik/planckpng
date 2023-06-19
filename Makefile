@@ -17,7 +17,7 @@ bootstrap:
 
 .PHONY: build
 build:
-	docker build . --tag matejkosiarcik/millipng:dev
+	docker build . --tag matejkosiarcik/planckpng:dev
 
 .PHONY: test
 test:

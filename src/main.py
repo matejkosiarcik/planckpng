@@ -205,7 +205,7 @@ def main(argv: List[str]):
     log.addHandler(logging.StreamHandler(sys.stderr))
 
     # parse arguments
-    parser = argparse.ArgumentParser(prog="millipng")
+    parser = argparse.ArgumentParser(prog="planckpng")
     parser.add_argument("-V", "--version", action="version", version="%(prog)s 0.2.3")
     parser.add_argument(
         "-l",

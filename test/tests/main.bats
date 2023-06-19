@@ -13,7 +13,7 @@ function teardown() {
 
 @test 'Optimize single file' {
     cp 'test/1x1.png' "$tmpdir/"
-    run docker run --volume "$tmpdir/1x1.png:/img" matejkosiarcik/millipng:dev --level fast
+    run docker run --volume "$tmpdir/1x1.png:/img" matejkosiarcik/planckpng:dev --level fast
     [ "$status" -eq 0 ]
 
     # verify file is smaller than the original
@@ -22,7 +22,7 @@ function teardown() {
 
 @test 'Dry run single file' {
     cp 'test/1x1.png' "$tmpdir/"
-    run docker run --volume "$tmpdir/1x1.png:/img" matejkosiarcik/millipng:dev --dry-run
+    run docker run --volume "$tmpdir/1x1.png:/img" matejkosiarcik/planckpng:dev --dry-run
 
     # verify program output
     [ "$status" -eq 0 ]
@@ -36,7 +36,7 @@ function teardown() {
 
 @test 'Optimize multiple files' {
     cp 'test/1x1.png' 'test/2x2.png' "$tmpdir/"
-    run docker run --volume "$tmpdir:/img" matejkosiarcik/millipng:dev --level fast
+    run docker run --volume "$tmpdir:/img" matejkosiarcik/planckpng:dev --level fast
     [ "$status" -eq 0 ]
 
     # verify files are smaller than the originals
@@ -46,7 +46,7 @@ function teardown() {
 
 @test 'Dry run multiple files' {
     cp 'test/1x1.png' 'test/2x2.png' "$tmpdir/"
-    run docker run --volume "$tmpdir:/img" matejkosiarcik/millipng:dev --dry-run
+    run docker run --volume "$tmpdir:/img" matejkosiarcik/planckpng:dev --dry-run
 
     # verify program output
     [ "$status" -eq 0 ]

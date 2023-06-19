@@ -30,9 +30,9 @@ RUN apt-get update && \
     apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install --yes --no-install-recommends libwine:i386 wine wine32 && \
     rm -rf /var/lib/apt/lists/* && \
-    ln -s /src/main.py /usr/bin/millipng && \
-    useradd --create-home --no-log-init --shell /bin/sh --user-group --system millipng
+    ln -s /src/main.py /usr/bin/planckpng && \
+    useradd --create-home --no-log-init --shell /bin/sh --user-group --system planckpng
 
-USER millipng
-ENTRYPOINT [ "millipng" ]
+USER planckpng
+ENTRYPOINT [ "planckpng" ]
 CMD []

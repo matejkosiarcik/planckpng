@@ -1,12 +1,9 @@
-# millipng
+# PlanckPNG
 
 > Ultra-brute PNG meta-optimizer
 
-[![dockerhub version](https://img.shields.io/docker/v/matejkosiarcik/millipng?label=dockerhub&sort=semver)](https://hub.docker.com/r/matejkosiarcik/millipng/tags?page=1&ordering=last_updated)
-[![github version](https://img.shields.io/github/v/release/matejkosiarcik/millipng?sort=semver)](https://github.com/matejkosiarcik/millipng/releases)
-
-[![dockerhub automated status](https://img.shields.io/docker/cloud/automated/matejkosiarcik/millipng)](https://hub.docker.com/r/matejkosiarcik/millipng/builds)
-[![dockerhub build status](https://img.shields.io/docker/cloud/build/matejkosiarcik/millipng)](https://hub.docker.com/r/matejkosiarcik/millipng/builds)
+[![dockerhub version](https://img.shields.io/docker/v/matejkosiarcik/planckpng?label=dockerhub&sort=semver)](https://hub.docker.com/r/matejkosiarcik/planckpng/tags?page=1&ordering=last_updated)
+[![github version](https://img.shields.io/github/v/release/matejkosiarcik/planckpng?sort=semver)](https://github.com/matejkosiarcik/planckpng/releases)
 
 <!-- toc -->
 
@@ -23,19 +20,19 @@
 
 ## Overview
 
-**millipng** is a `.png` meta-optimizer.
+**PlanckPNG** is a `.png` meta-optimizer.
 
 A meta-optimizer?
-_millipng_ is not an optimizer by itself, it just calls multiple existing
-optimizers (_deflopt_, _defluff_, _optipng_, _pngoptimizer_, _pngout_,
-_truepng_, _zopflipng_) in a specific order described by (not mine) analysis
+_PlanckPNG_ is not an optimizer by itself, it just calls multiple existing
+optimizers (_Deflopt_, _Defluff_, _OptiPNG_, _PngOptimizer_, _PNGOUT_,
+_TruePNG_, _ZopfliPNG_) in a specific order described by (not mine) analysis
 here:
 [reddit.com/r/webdev/wiki](https://www.reddit.com/r/webdev/wiki/optimization#wiki_png_compression_instructions).
 
-_millipng_ is a lossless PNG optimizer (except removing exif and alpha channel
+_PlanckPNG_ is a lossless PNG optimizer (except removing exif and alpha channel
 color info).
 
-_millipng_ is distributed as a docker image.
+_PlanckPNG_ is distributed as a docker image.
 This ensures consistent runtime environment with no configuration on your side
 (few of the included optimizers require wine to run on non Windows OS, which is
 already setup in the image).
@@ -47,47 +44,47 @@ already setup in the image).
 
 ## Usage
 
-### Linux & macOS
+![PlanckPNG demo](./doc/demo.gif)
 
-![millipng demo](./doc/demo.gif)
+### Linux & macOS
 
 ```sh
 # optimize all pngs in current directory (recursively)
-docker run -v "$PWD:/img" matejkosiarcik/millipng
+docker run -v "$PWD:/img" matejkosiarcik/planckpng
 
 # optimize a single png
-docker run -v "$PWD/image.png:/img" matejkosiarcik/millipng
+docker run -v "$PWD/image.png:/img" matejkosiarcik/planckpng
 ```
 
 ### Windows
 
 ```bat
-# optimize all pngs in current directory (recursively)
-docker run -v "%cd%:/img" matejkosiarcik/millipng
+# optimize all PNGs in current directory (recursively)
+docker run -v "%cd%:/img" matejkosiarcik/planckpng
 
-# optimize a single png
-docker run -v "%cd%/image.png:/img" matejkosiarcik/millipng
+# optimize a single PNG
+docker run -v "%cd%/image.png:/img" matejkosiarcik/planckpng
 ```
 
 ### Recommendations
 
 For maximum optimization, I recommend
 
-1. call _pngquant_ before _millipng_ (beware _pngquant_ is lossy)
-2. use `--level ultra-brute` in _millipng_ (beware this takes a **really long time** for any sizible PNG)
+1. call _Pngquant_ before _PlanckPNG_ (beware _Pngquant_ is lossy)
+2. use `--level ultra-brute` in _PlanckPNG_ (beware this takes a **really long time** for any sizible PNG)
 
 Example:
 
 ```sh
 pngquant --strip --speed 1 --skip-if-larger --quality 0-95 --force 'image.png' --output 'image.png'
-docker run -v "$PWD/image.png:/img" matejkosiarcik/millipng --level ultra-brute
+docker run -v "$PWD/image.png:/img" matejkosiarcik/planckpng --level ultra-brute
 ```
 
 ## Help
 
 ```sh
-$ docker run matejkosiarcik/millipng --help
-usage: millipng [-h] [-V] [-l {fast,default,brute,ultra-brute}] [-n] [-j JOBS]
+$ docker run matejkosiarcik/planckpng --help
+usage: planckpng [-h] [-V] [-l {fast,default,brute,ultra-brute}] [-n] [-j JOBS]
                 [-v | -q]
 
 optional arguments:
