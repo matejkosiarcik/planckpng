@@ -5,9 +5,6 @@
 [![dockerhub version](https://img.shields.io/docker/v/matejkosiarcik/planckpng?label=dockerhub&sort=semver)](https://hub.docker.com/r/matejkosiarcik/planckpng/tags?page=1&ordering=last_updated)
 [![github version](https://img.shields.io/github/v/release/matejkosiarcik/planckpng?sort=semver)](https://github.com/matejkosiarcik/planckpng/releases)
 
-[![dockerhub automated status](https://img.shields.io/docker/cloud/automated/matejkosiarcik/planckpng)](https://hub.docker.com/r/matejkosiarcik/planckpng/builds)
-[![dockerhub build status](https://img.shields.io/docker/cloud/build/matejkosiarcik/planckpng)](https://hub.docker.com/r/matejkosiarcik/planckpng/builds)
-
 <!-- toc -->
 
 - [Overview](#overview)
@@ -23,19 +20,19 @@
 
 ## Overview
 
-**planckpng** is a `.png` meta-optimizer.
+**PlanckPNG** is a `.png` meta-optimizer.
 
 A meta-optimizer?
-_planckpng_ is not an optimizer by itself, it just calls multiple existing
+_PlanckPNG_ is not an optimizer by itself, it just calls multiple existing
 optimizers (_deflopt_, _defluff_, _optipng_, _pngoptimizer_, _pngout_,
 _truepng_, _zopflipng_) in a specific order described by (not mine) analysis
 here:
 [reddit.com/r/webdev/wiki](https://www.reddit.com/r/webdev/wiki/optimization#wiki_png_compression_instructions).
 
-_planckpng_ is a lossless PNG optimizer (except removing exif and alpha channel
+_PlanckPNG_ is a lossless PNG optimizer (except removing exif and alpha channel
 color info).
 
-_planckpng_ is distributed as a docker image.
+_PlanckPNG_ is distributed as a docker image.
 This ensures consistent runtime environment with no configuration on your side
 (few of the included optimizers require wine to run on non Windows OS, which is
 already setup in the image).
@@ -47,9 +44,9 @@ already setup in the image).
 
 ## Usage
 
-### Linux & macOS
+![PlanckPNG demo](./doc/demo.gif)
 
-![planckpng demo](./doc/demo.gif)
+### Linux & macOS
 
 ```sh
 # optimize all pngs in current directory (recursively)
@@ -62,10 +59,10 @@ docker run -v "$PWD/image.png:/img" matejkosiarcik/planckpng
 ### Windows
 
 ```bat
-# optimize all pngs in current directory (recursively)
+# optimize all PNGs in current directory (recursively)
 docker run -v "%cd%:/img" matejkosiarcik/planckpng
 
-# optimize a single png
+# optimize a single PNG
 docker run -v "%cd%/image.png:/img" matejkosiarcik/planckpng
 ```
 
