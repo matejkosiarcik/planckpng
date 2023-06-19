@@ -23,7 +23,7 @@ jobs:
 
   build:
     docker:
-      - image: docker
+      - image: docker:24.0.2
     steps:
       - checkout
       - setup_remote_docker
