@@ -4,6 +4,10 @@
 
 Special thanks to these tools and their contributors:
 
+<!-- textlint-disable -->
+
 - [asciinema](https://github.com/asciinema/asciinema)
 - [asciicast2gif](https://github.com/asciinema/asciicast2gif)
 - [demo-magic](https://github.com/paxtonhare/demo-magic)
+
+<!-- textlint-enable -->

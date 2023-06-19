@@ -24,8 +24,8 @@
 
 A meta-optimizer?
 _PlanckPNG_ is not an optimizer by itself, it just calls multiple existing
-optimizers (_deflopt_, _defluff_, _optipng_, _pngoptimizer_, _pngout_,
-_truepng_, _zopflipng_) in a specific order described by (not mine) analysis
+optimizers (_Deflopt_, _defluff_, _OptiPNG_, _PngOptimizer_, _PNGOUT_,
+_TruePNG_, _ZopfliPNG_) in a specific order described by (not mine) analysis
 here:
 [reddit.com/r/webdev/wiki](https://www.reddit.com/r/webdev/wiki/optimization#wiki_png_compression_instructions).
 
