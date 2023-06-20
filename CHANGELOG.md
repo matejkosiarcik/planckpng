@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Miscellaneous
   - Update dependencies
-  - Do not publish `dev` tag for "trunk" releases (only `edge`)
+  - Do not publish `:dev` tag for "trunk" releases (only `:edge`)
 
 ## \[0.3.0\] - 2023-06-20
 
@@ -17,7 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Optimize docker image
   - Update dependencies
   - Rename project `millipng` -> `planckpng`
-  - Publish `edge` tag alongside `dev` tag to symbolize latest "trunk" release
+  - Publish `:edge` tag alongside `:dev` tag to symbolize latest "trunk" release
 
 ## \[0.2.4\] - 2021-10-08
 
