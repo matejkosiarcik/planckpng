@@ -25,7 +25,6 @@ jobs:
             matejkosiarcik/planckpng
           tags: |
             type=edge
-            type=raw,value=dev,enable=${{ github.event_name == 'push' }}
             type=raw,value=latest,enable=${{ github.event_name == 'push tag' }}
             type=semver,pattern={{major}},enable=${{ github.event_name == 'push tag' }}
             type=semver,pattern={{major}}.{{minor}},enable=${{ github.event_name == 'push tag' }}
@@ -40,8 +39,8 @@ jobs:
 
       - name: Debug logs
         run: |
-          echo "Platforms: ${{ steps.buildx.outputs.platforms }}"
-          echo "Tags: ${{ steps.tags.outputs.tags }}"
+          printf "Platforms:\n%s\n" "${{ steps.buildx.outputs.platforms }}"
+          printf "Tags:\n%s\n" "${{ steps.tags.outputs.tags }}"
 
       - name: Login to DockerHub
         uses: docker/login-action@v2.1.0
