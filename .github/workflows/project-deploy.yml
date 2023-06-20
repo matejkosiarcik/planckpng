@@ -39,8 +39,8 @@ jobs:
 
       - name: Debug logs
         run: |
-          echo "Platforms:\n${{ steps.buildx.outputs.platforms }}"
-          echo "Tags:\n${{ steps.tags.outputs.tags }}"
+          printf "Platforms:\n%s\n" "${{ steps.buildx.outputs.platforms }}"
+          printf "Tags:\n%s\n" "${{ steps.tags.outputs.tags }}"
 
       - name: Login to DockerHub
         uses: docker/login-action@v2.1.0
