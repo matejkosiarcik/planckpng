@@ -25,7 +25,6 @@ jobs:
             matejkosiarcik/planckpng
           tags: |
             type=edge
-            type=raw,value=dev,enable=${{ github.event_name == 'push' }}
             type=raw,value=latest,enable=${{ github.event_name == 'push tag' }}
             type=semver,pattern={{major}},enable=${{ github.event_name == 'push tag' }}
             type=semver,pattern={{major}}.{{minor}},enable=${{ github.event_name == 'push tag' }}
