@@ -1,0 +1,20 @@
+name: Deploy dockerhub description
+
+permissions: read-all
+on: release
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3.5.3
+
+      - name: Update DockerHub description
+        uses: peter-evans/dockerhub-description@v3.4.2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+          repository: matejkosiarcik/planckpng
+          short-description: ${{ github.event.repository.description }}
