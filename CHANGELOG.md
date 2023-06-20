@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Miscellaneous
   - Optimize docker image
   - Update dependencies
+  - Update runtime container from debian `11.6` to `12.0`
   - Rename project `millipng` -> `planckpng`
   - Publish `:edge` tag alongside `:dev` tag to symbolize latest "trunk" release
 
