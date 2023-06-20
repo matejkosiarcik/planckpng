@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Optimize docker image
   - Update dependencies
   - Rename project `millipng` -> `planckpng`
+  - Publish `edge` tag alongside `dev` tag to symbolize latest "trunk" release
 
 ## \[0.2.4\] - 2021-10-08
 
