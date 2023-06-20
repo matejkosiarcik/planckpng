@@ -1,7 +1,11 @@
 name: Deploy dockerhub description
 
 permissions: read-all
-on: release
+
+on:
+  push:
+    branches:
+      - main
 
 jobs:
   deploy:
