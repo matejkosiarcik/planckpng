@@ -7,10 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## \[Unreleased\]
 
+## \[0.3.0\] - 2023-06-20
+
 - Miscellaneous
   - Optimize docker image
   - Update dependencies
-- Rename project `millipng` -> `planckpng`
+  - Rename project `millipng` -> `planckpng`
 
 ## \[0.2.4\] - 2021-10-08
 
