@@ -40,13 +40,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Added
   - Allow optimising full directory
-  - Optimize multiple pngs in parallel
+  - Optimize multiple PNGs in parallel
   - Progress indicators for each file
 
 ## \[0.1.2\] - 2020-10-03
 
 - Changed
-  - Rename project (redopng -> millipng)
+  - Rename project (redoPNG -> milliPNG)
 
 ## \[0.1.1\] - 2020-09-25
 
