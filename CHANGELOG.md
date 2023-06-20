@@ -46,7 +46,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## \[0.1.2\] - 2020-10-03
 
 - Changed
-  - Rename project (redoPNG -> milliPNG)
+  - Rename project (`redopng` -> `millipng`)
 
 ## \[0.1.1\] - 2020-09-25
 
