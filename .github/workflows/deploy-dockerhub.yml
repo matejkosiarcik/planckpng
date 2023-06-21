@@ -25,10 +25,9 @@ jobs:
             matejkosiarcik/planckpng
           tags: |
             type=edge,branch=main
-            type=raw,value=latest,enable=${{ github.event_name == 'push tag' }}
-            type=semver,pattern={{major}},enable=${{ github.event_name == 'push tag' }}
-            type=semver,pattern={{major}}.{{minor}},enable=${{ github.event_name == 'push tag' }}
-            type=semver,pattern={{major}}.{{minor}}.{{patch}},enable=${{ github.event_name == 'push tag' }}
+            type=semver,pattern={{major}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=semver,pattern={{major}}.{{minor}}.{{patch}}
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2.2.0
