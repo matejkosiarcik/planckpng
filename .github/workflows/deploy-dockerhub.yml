@@ -24,7 +24,7 @@ jobs:
           images: |
             matejkosiarcik/planckpng
           tags: |
-            type=edge
+            type=edge,branch=main
             type=raw,value=latest,enable=${{ github.event_name == 'push tag' }}
             type=semver,pattern={{major}},enable=${{ github.event_name == 'push tag' }}
             type=semver,pattern={{major}}.{{minor}},enable=${{ github.event_name == 'push tag' }}
