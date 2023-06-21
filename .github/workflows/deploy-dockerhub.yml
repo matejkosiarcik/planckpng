@@ -28,6 +28,7 @@ jobs:
             type=semver,pattern={{major}}
             type=semver,pattern={{major}}.{{minor}}
             type=semver,pattern={{major}}.{{minor}}.{{patch}}
+          # :latest tag is added automatically on type=semver
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2.2.0
