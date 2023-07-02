@@ -10,7 +10,7 @@ workflows:
 jobs:
   azlint:
     docker:
-      - image: matejkosiarcik/azlint:0.6.0
+      - image: matejkosiarcik/azlint:0.6.2
     steps:
       - checkout
       - run: find .config -type f -exec sh -c 'ln -s "$0" "$(basename "$0")"' {} \; # TODO: Remove
