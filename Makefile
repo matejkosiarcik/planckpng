@@ -27,6 +27,6 @@ test:
 test-lite:
 	npm --prefix test run test-lite
 
-.PHONY: doc
-doc:
+.PHONY: demo
+demo:
 	@$(MAKE) -C$(PROJECT_DIR)/docs/demo bootstrap record
