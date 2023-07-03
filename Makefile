@@ -14,6 +14,7 @@ all: bootstrap build
 .PHONY: bootstrap
 bootstrap:
 	npm --prefix test ci
+	@$(MAKE) -C$(PROJECT_DIR)/docs/demo bootstrap
 
 .PHONY: build
 build:
@@ -26,7 +27,3 @@ test:
 .PHONY: test-lite
 test-lite:
 	npm --prefix test run test-lite
-
-.PHONY: doc
-doc:
-	@$(MAKE) -C$(PROJECT_DIR)/docs/demo bootstrap record
