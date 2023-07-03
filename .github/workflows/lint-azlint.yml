@@ -28,5 +28,5 @@ jobs:
           if [ "$GITHUB_REF_NAME" = main ]; then
             azlint
           else
-            azlint # --only-changed # TODO: Fix
+            azlint --only-changed
           fi
