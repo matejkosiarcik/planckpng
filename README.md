@@ -44,7 +44,7 @@ already setup in the image).
 
 ## Usage
 
-![PlanckPNG demo](./doc/demo.gif)
+![PlanckPNG demo](./docs/demo.gif)
 
 ### Linux & macOS
 

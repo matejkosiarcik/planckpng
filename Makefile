@@ -29,4 +29,4 @@ test-lite:
 
 .PHONY: doc
 doc:
-	@$(MAKE) -C$(PROJECT_DIR)/doc/demo bootstrap record
+	@$(MAKE) -C$(PROJECT_DIR)/docs/demo bootstrap record
