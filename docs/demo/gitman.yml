@@ -1,6 +1,6 @@
 location: gitman/
 sources:
-  - repo: git@github.com:paxtonhare/demo-magic.git
+  - repo: https://github.com/paxtonhare/demo-magic
     name: demo-magic
     rev: master
     type: git
@@ -11,7 +11,7 @@ sources:
     scripts:
       -
 sources_locked:
-  - repo: git@github.com:paxtonhare/demo-magic.git
+  - repo: https://github.com/paxtonhare/demo-magic
     name: demo-magic
     rev: a938137035b73105d09347a91f9fd5e9722b617a
     type: git
