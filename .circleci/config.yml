@@ -15,12 +15,11 @@ jobs:
       - checkout
       - run: find .config -type f -exec sh -c 'ln -s "$0" "$(basename "$0")"' {} \; # TODO: Remove
       - run: |
-          azlint
-          # if [ "$CIRCLE_BRANCH" = main ]; then
-          #   azlint
-          # else
-          #   azlint --only-changed
-          # fi
+          if [ "$CIRCLE_BRANCH" = main ]; then
+            azlint
+          else
+            azlint --only-changed
+          fi
 
   build:
     docker:
