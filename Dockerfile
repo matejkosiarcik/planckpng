@@ -1,5 +1,12 @@
 # checkov:skip=CKV_DOCKER_2:Disable HEALTHCHECK
 
+FROM node:20.3.1-slim AS node
+WORKDIR /app
+COPY dependencies/package.json dependencies/package-lock.json ./
+RUN npm ci --unsafe-perm && \
+    npx node-prune && \
+    npm prune --production
+
 FROM debian:12.0-slim AS chmod
 WORKDIR /app
 COPY src/main.py src/main.sh src/utils.sh ./
@@ -11,13 +18,6 @@ COPY dependencies/bin/truepng-0.6.2.5.exe /usr/bin/truepng.exe
 RUN printf '%s\n%s\n%s\n' '#!/bin/sh' 'set -euf' 'WINEDEBUG=fixme-all,err-all wine /usr/bin/truepng.exe $@' >/usr/bin/truepng && \
     printf '%s\n%s\n%s\n' '#!/bin/sh' 'set -euf' 'WINEDEBUG=fixme-all,err-all wine /usr/bin/deflopt.exe $@' >/usr/bin/deflopt && \
     chmod a+x main.py main.sh /usr/bin/truepng /usr/bin/deflopt
-
-FROM node:20.3.1-slim AS node
-WORKDIR /app
-COPY dependencies/package.json dependencies/package-lock.json ./
-RUN npm ci --unsafe-perm && \
-    npx node-prune && \
-    npm prune --production
 
 FROM debian:12.0-slim
 WORKDIR /app
