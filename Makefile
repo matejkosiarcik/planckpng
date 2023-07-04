@@ -21,11 +21,11 @@ build:
 
 .PHONY: test
 test:
-	npm --prefix test test
+	npm --prefix tests test
 
 .PHONY: test-lite
 test-lite:
-	npm --prefix test run test-lite
+	npm --prefix tests run test-lite
 
 .PHONY: demo
 demo:
