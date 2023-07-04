@@ -12,7 +12,7 @@ function teardown() {
 }
 
 @test 'Optimize single file' {
-    cp 'test/1x1.png' "$tmpdir/"
+    cp 'tests/1x1.png' "$tmpdir/"
     run docker run --volume "$tmpdir/1x1.png:/img" matejkosiarcik/planckpng:dev --level fast
     [ "$status" -eq 0 ]
 
@@ -21,7 +21,7 @@ function teardown() {
 }
 
 @test 'Dry run single file' {
-    cp 'test/1x1.png' "$tmpdir/"
+    cp 'tests/1x1.png' "$tmpdir/"
     run docker run --volume "$tmpdir/1x1.png:/img" matejkosiarcik/planckpng:dev --dry-run
 
     # verify program output
@@ -35,7 +35,7 @@ function teardown() {
 }
 
 @test 'Optimize multiple files' {
-    cp 'test/1x1.png' 'test/2x2.png' "$tmpdir/"
+    cp 'tests/1x1.png' 'test/2x2.png' "$tmpdir/"
     run docker run --volume "$tmpdir:/img" matejkosiarcik/planckpng:dev --level fast
     [ "$status" -eq 0 ]
 
@@ -45,7 +45,7 @@ function teardown() {
 }
 
 @test 'Dry run multiple files' {
-    cp 'test/1x1.png' 'test/2x2.png' "$tmpdir/"
+    cp 'tests/1x1.png' 'test/2x2.png' "$tmpdir/"
     run docker run --volume "$tmpdir:/img" matejkosiarcik/planckpng:dev --dry-run
 
     # verify program output
