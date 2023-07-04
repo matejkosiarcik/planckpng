@@ -1,6 +1,5 @@
 {
   "private": true,
-  "name": "example",
   "dependencies": {
     "zopflipng-bin": "^7.1.0"
   },
