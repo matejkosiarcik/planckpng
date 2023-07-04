@@ -19,11 +19,15 @@ RUN printf '%s\n%s\n%s\n' '#!/bin/sh' 'set -euf' 'WINEDEBUG=fixme-all,err-all wi
     printf '%s\n%s\n%s\n' '#!/bin/sh' 'set -euf' 'WINEDEBUG=fixme-all,err-all wine /usr/bin/deflopt.exe $@' >/usr/bin/deflopt && \
     chmod a+x main.py main.sh /usr/bin/truepng /usr/bin/deflopt
 
-FROM debian:12.0-slim
+FROM debian:12.0-slim AS pre-final
 WORKDIR /app
 COPY --from=chmod /app/main.py /app/main.sh /app/utils.sh ./
-COPY --from=chmod /usr/bin/deflopt /usr/bin/deflopt.exe /usr/bin/defluff /usr/bin/pngoptimizer /usr/bin/pngout /usr/bin/truepng /usr/bin/truepng.exe /usr/bin/
 COPY --from=node /app/node_modules ./node_modules
+
+FROM debian:12.0-slim
+WORKDIR /app
+COPY --from=chmod /usr/bin/deflopt /usr/bin/deflopt.exe /usr/bin/defluff /usr/bin/pngoptimizer /usr/bin/pngout /usr/bin/truepng /usr/bin/truepng.exe /usr/bin/
+COPY --from=pre-final /app .
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install --yes --no-install-recommends nodejs optipng python3 && \
     dpkg --add-architecture i386 && \
@@ -34,5 +38,5 @@ RUN apt-get update && \
     useradd --create-home --no-log-init --shell /bin/sh --user-group --system planckpng
 
 USER planckpng
-ENTRYPOINT [ "planckpng" ]
+ENTRYPOINT ["planckpng"]
 CMD []
