@@ -13,7 +13,7 @@ all: bootstrap build
 
 .PHONY: bootstrap
 bootstrap:
-	npm --prefix test ci
+	npm --prefix tests ci
 
 .PHONY: build
 build:
@@ -21,11 +21,11 @@ build:
 
 .PHONY: test
 test:
-	npm --prefix test test
+	npm --prefix tests test
 
 .PHONY: test-lite
 test-lite:
-	npm --prefix test run test-lite
+	npm --prefix tests run test-lite
 
 .PHONY: demo
 demo:
