@@ -13,7 +13,7 @@ jobs:
     name: AZLint
     runs-on: ubuntu-latest
     container:
-      image: matejkosiarcik/azlint:0.6.2
+      image: matejkosiarcik/azlint:0.6.6
       options: --user root
     steps:
       - name: Checkout
@@ -24,7 +24,6 @@ jobs:
       - name: Run AZLint
         run: |
           git config --global --add safe.directory "$PWD"
-          find .config -type f -exec sh -c 'ln -s "$0" "$(basename "$0")"' {} \; # TODO: Remove
           if [ "$GITHUB_REF_NAME" = main ]; then
             azlint
           else
