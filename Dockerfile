@@ -1,6 +1,6 @@
 # checkov:skip=CKV_DOCKER_2:Disable HEALTHCHECK
 
-FROM node:21.4.0-slim AS node
+FROM node:21.5.0-slim AS node
 WORKDIR /app
 COPY dependencies/package.json dependencies/package-lock.json ./
 RUN npm ci --unsafe-perm && \
