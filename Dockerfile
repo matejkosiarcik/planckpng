@@ -7,7 +7,7 @@ RUN npm ci --unsafe-perm && \
     npx node-prune && \
     npm prune --production
 
-FROM debian:12.5-slim AS chmod
+FROM debian:12.6-slim AS chmod
 WORKDIR /app
 COPY src/main.py src/main.sh src/utils.sh ./
 COPY dependencies/bin/deflopt-2.07.exe /usr/bin/deflopt.exe
@@ -19,12 +19,12 @@ RUN printf '%s\n%s\n%s\n' '#!/bin/sh' 'set -euf' 'WINEDEBUG=fixme-all,err-all wi
     printf '%s\n%s\n%s\n' '#!/bin/sh' 'set -euf' 'WINEDEBUG=fixme-all,err-all wine /usr/bin/deflopt.exe $@' >/usr/bin/deflopt && \
     chmod a+x main.py main.sh /usr/bin/truepng /usr/bin/deflopt
 
-FROM debian:12.5-slim AS pre-final
+FROM debian:12.6-slim AS pre-final
 WORKDIR /app
 COPY --from=chmod /app/main.py /app/main.sh /app/utils.sh ./
 COPY --from=node /app/node_modules ./node_modules
 
-FROM debian:12.5-slim
+FROM debian:12.6-slim
 WORKDIR /app
 COPY --from=chmod /usr/bin/deflopt /usr/bin/deflopt.exe /usr/bin/defluff /usr/bin/pngoptimizer /usr/bin/pngout /usr/bin/truepng /usr/bin/truepng.exe /usr/bin/
 COPY --from=pre-final /app .
